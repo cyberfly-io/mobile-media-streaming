@@ -7,7 +7,9 @@
 // ignore_for_file: argument_type_not_assignable
 
 import 'api/direct_flutter_api.dart';
+import 'api/ffmpeg_flutter_api.dart';
 import 'api/flutter_api.dart';
+import 'api/iroh_live_flutter_api.dart';
 import 'api/live_flutter_api.dart';
 import 'api/moq_flutter_api.dart';
 import 'api/simple.dart';
@@ -25,6 +27,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   });
 
   @protected
+  Map<String, String> dco_decode_Map_String_String_None(dynamic raw);
+
+  @protected
+  Map<String, bool> dco_decode_Map_String_bool_None(dynamic raw);
+
+  @protected
   String dco_decode_String(dynamic raw);
 
   @protected
@@ -32,6 +40,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   double dco_decode_box_autoadd_f_64(dynamic raw);
+
+  @protected
+  FlutterAudioSamples dco_decode_box_autoadd_flutter_audio_samples(dynamic raw);
+
+  @protected
+  FlutterBroadcastCatalog dco_decode_box_autoadd_flutter_broadcast_catalog(
+    dynamic raw,
+  );
 
   @protected
   FlutterCatalog dco_decode_box_autoadd_flutter_catalog(dynamic raw);
@@ -52,13 +68,50 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   dco_decode_box_autoadd_flutter_namespace_announcement(dynamic raw);
 
   @protected
+  FlutterPublisherStatus dco_decode_box_autoadd_flutter_publisher_status(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterSubscriberStatus dco_decode_box_autoadd_flutter_subscriber_status(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterTicketInfo dco_decode_box_autoadd_flutter_ticket_info(dynamic raw);
+
+  @protected
+  FlutterVideoFrame dco_decode_box_autoadd_flutter_video_frame(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw);
+
+  @protected
   BigInt dco_decode_box_autoadd_u_64(dynamic raw);
 
   @protected
   int dco_decode_box_autoadd_u_8(dynamic raw);
 
   @protected
+  double dco_decode_f_32(dynamic raw);
+
+  @protected
   double dco_decode_f_64(dynamic raw);
+
+  @protected
+  FlutterAudioCodec dco_decode_flutter_audio_codec(dynamic raw);
+
+  @protected
+  FlutterAudioRendition dco_decode_flutter_audio_rendition(dynamic raw);
+
+  @protected
+  FlutterAudioSamples dco_decode_flutter_audio_samples(dynamic raw);
+
+  @protected
+  FlutterBroadcastCatalog dco_decode_flutter_broadcast_catalog(dynamic raw);
+
+  @protected
+  FlutterCaptureDevice dco_decode_flutter_capture_device(dynamic raw);
 
   @protected
   FlutterCatalog dco_decode_flutter_catalog(dynamic raw);
@@ -67,13 +120,31 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   FlutterConnectionStats dco_decode_flutter_connection_stats(dynamic raw);
 
   @protected
+  FlutterDecodedAudioFrame dco_decode_flutter_decoded_audio_frame(dynamic raw);
+
+  @protected
+  FlutterDecodedVideoFrame dco_decode_flutter_decoded_video_frame(dynamic raw);
+
+  @protected
   FlutterDirectEvent dco_decode_flutter_direct_event(dynamic raw);
+
+  @protected
+  FlutterEncodedAudioFrame dco_decode_flutter_encoded_audio_frame(dynamic raw);
+
+  @protected
+  FlutterEncodedVideoFrame dco_decode_flutter_encoded_video_frame(dynamic raw);
+
+  @protected
+  FlutterEncoderPreset dco_decode_flutter_encoder_preset(dynamic raw);
 
   @protected
   FlutterFilterType dco_decode_flutter_filter_type(dynamic raw);
 
   @protected
   FlutterGroupOrder dco_decode_flutter_group_order(dynamic raw);
+
+  @protected
+  FlutterHardwareAccel dco_decode_flutter_hardware_accel(dynamic raw);
 
   @protected
   FlutterLiveEvent dco_decode_flutter_live_event(dynamic raw);
@@ -93,7 +164,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   FlutterObjectStatus dco_decode_flutter_object_status(dynamic raw);
 
   @protected
+  FlutterPublisherStatus dco_decode_flutter_publisher_status(dynamic raw);
+
+  @protected
   FlutterStreamEvent dco_decode_flutter_stream_event(dynamic raw);
+
+  @protected
+  FlutterSubscriberStatus dco_decode_flutter_subscriber_status(dynamic raw);
+
+  @protected
+  FlutterTicketInfo dco_decode_flutter_ticket_info(dynamic raw);
+
+  @protected
+  FlutterTrackInfo dco_decode_flutter_track_info(dynamic raw);
 
   @protected
   FlutterTrackStatus dco_decode_flutter_track_status(dynamic raw);
@@ -102,19 +185,54 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   FlutterTrackStatusCode dco_decode_flutter_track_status_code(dynamic raw);
 
   @protected
+  FlutterVideoCodec dco_decode_flutter_video_codec(dynamic raw);
+
+  @protected
+  FlutterVideoFrame dco_decode_flutter_video_frame(dynamic raw);
+
+  @protected
   FlutterVideoQuality dco_decode_flutter_video_quality(dynamic raw);
+
+  @protected
+  FlutterVideoQualityFfmpeg dco_decode_flutter_video_quality_ffmpeg(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterVideoRendition dco_decode_flutter_video_rendition(dynamic raw);
 
   @protected
   FlutterVideoTrack dco_decode_flutter_video_track(dynamic raw);
 
   @protected
+  int dco_decode_i_16(dynamic raw);
+
+  @protected
   int dco_decode_i_32(dynamic raw);
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw);
 
   @protected
   List<String> dco_decode_list_String(dynamic raw);
 
   @protected
+  List<FlutterAudioRendition> dco_decode_list_flutter_audio_rendition(
+    dynamic raw,
+  );
+
+  @protected
+  List<FlutterCaptureDevice> dco_decode_list_flutter_capture_device(
+    dynamic raw,
+  );
+
+  @protected
   List<FlutterDirectEvent> dco_decode_list_flutter_direct_event(dynamic raw);
+
+  @protected
+  List<FlutterEncodedVideoFrame> dco_decode_list_flutter_encoded_video_frame(
+    dynamic raw,
+  );
 
   @protected
   List<FlutterLiveEvent> dco_decode_list_flutter_live_event(dynamic raw);
@@ -130,16 +248,36 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<FlutterStreamEvent> dco_decode_list_flutter_stream_event(dynamic raw);
 
   @protected
+  List<FlutterTrackInfo> dco_decode_list_flutter_track_info(dynamic raw);
+
+  @protected
   List<FlutterVideoQuality> dco_decode_list_flutter_video_quality(dynamic raw);
 
   @protected
+  List<FlutterVideoRendition> dco_decode_list_flutter_video_rendition(
+    dynamic raw,
+  );
+
+  @protected
   List<FlutterVideoTrack> dco_decode_list_flutter_video_track(dynamic raw);
+
+  @protected
+  List<int> dco_decode_list_prim_i_16_loose(dynamic raw);
+
+  @protected
+  Int16List dco_decode_list_prim_i_16_strict(dynamic raw);
 
   @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  List<(String, bool)> dco_decode_list_record_string_bool(dynamic raw);
+
+  @protected
+  List<(String, String)> dco_decode_list_record_string_string(dynamic raw);
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
@@ -155,6 +293,24 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   dco_decode_opt_box_autoadd_flutter_namespace_announcement(dynamic raw);
 
   @protected
+  FlutterPublisherStatus? dco_decode_opt_box_autoadd_flutter_publisher_status(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterSubscriberStatus? dco_decode_opt_box_autoadd_flutter_subscriber_status(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterTicketInfo? dco_decode_opt_box_autoadd_flutter_ticket_info(
+    dynamic raw,
+  );
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
   BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw);
 
   @protected
@@ -167,6 +323,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   QualityConstraints dco_decode_quality_constraints(dynamic raw);
 
   @protected
+  (String, bool) dco_decode_record_string_bool(dynamic raw);
+
+  @protected
   (String, String) dco_decode_record_string_string(dynamic raw);
 
   @protected
@@ -174,6 +333,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   (int, int, int) dco_decode_record_u_8_u_8_u_8(dynamic raw);
+
+  @protected
+  int dco_decode_u_16(dynamic raw);
 
   @protected
   int dco_decode_u_32(dynamic raw);
@@ -188,6 +350,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void dco_decode_unit(dynamic raw);
 
   @protected
+  Map<String, String> sse_decode_Map_String_String_None(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  Map<String, bool> sse_decode_Map_String_bool_None(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
@@ -195,6 +367,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   double sse_decode_box_autoadd_f_64(SseDeserializer deserializer);
+
+  @protected
+  FlutterAudioSamples sse_decode_box_autoadd_flutter_audio_samples(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterBroadcastCatalog sse_decode_box_autoadd_flutter_broadcast_catalog(
+    SseDeserializer deserializer,
+  );
 
   @protected
   FlutterCatalog sse_decode_box_autoadd_flutter_catalog(
@@ -223,13 +405,64 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterPublisherStatus sse_decode_box_autoadd_flutter_publisher_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterSubscriberStatus sse_decode_box_autoadd_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterTicketInfo sse_decode_box_autoadd_flutter_ticket_info(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterVideoFrame sse_decode_box_autoadd_flutter_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
   BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
 
   @protected
   int sse_decode_box_autoadd_u_8(SseDeserializer deserializer);
 
   @protected
+  double sse_decode_f_32(SseDeserializer deserializer);
+
+  @protected
   double sse_decode_f_64(SseDeserializer deserializer);
+
+  @protected
+  FlutterAudioCodec sse_decode_flutter_audio_codec(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterAudioRendition sse_decode_flutter_audio_rendition(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterAudioSamples sse_decode_flutter_audio_samples(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterBroadcastCatalog sse_decode_flutter_broadcast_catalog(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterCaptureDevice sse_decode_flutter_capture_device(
+    SseDeserializer deserializer,
+  );
 
   @protected
   FlutterCatalog sse_decode_flutter_catalog(SseDeserializer deserializer);
@@ -240,7 +473,32 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterDecodedAudioFrame sse_decode_flutter_decoded_audio_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterDecodedVideoFrame sse_decode_flutter_decoded_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterDirectEvent sse_decode_flutter_direct_event(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterEncodedAudioFrame sse_decode_flutter_encoded_audio_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterEncodedVideoFrame sse_decode_flutter_encoded_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterEncoderPreset sse_decode_flutter_encoder_preset(
     SseDeserializer deserializer,
   );
 
@@ -251,6 +509,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   FlutterGroupOrder sse_decode_flutter_group_order(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterHardwareAccel sse_decode_flutter_hardware_accel(
     SseDeserializer deserializer,
   );
 
@@ -274,9 +537,27 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterPublisherStatus sse_decode_flutter_publisher_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterStreamEvent sse_decode_flutter_stream_event(
     SseDeserializer deserializer,
   );
+
+  @protected
+  FlutterSubscriberStatus sse_decode_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterTicketInfo sse_decode_flutter_ticket_info(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterTrackInfo sse_decode_flutter_track_info(SseDeserializer deserializer);
 
   @protected
   FlutterTrackStatus sse_decode_flutter_track_status(
@@ -289,7 +570,27 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterVideoCodec sse_decode_flutter_video_codec(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterVideoFrame sse_decode_flutter_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterVideoQuality sse_decode_flutter_video_quality(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterVideoQualityFfmpeg sse_decode_flutter_video_quality_ffmpeg(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterVideoRendition sse_decode_flutter_video_rendition(
     SseDeserializer deserializer,
   );
 
@@ -299,13 +600,34 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  int sse_decode_i_16(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer);
 
   @protected
   List<String> sse_decode_list_String(SseDeserializer deserializer);
 
   @protected
+  List<FlutterAudioRendition> sse_decode_list_flutter_audio_rendition(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<FlutterCaptureDevice> sse_decode_list_flutter_capture_device(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   List<FlutterDirectEvent> sse_decode_list_flutter_direct_event(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<FlutterEncodedVideoFrame> sse_decode_list_flutter_encoded_video_frame(
     SseDeserializer deserializer,
   );
 
@@ -329,7 +651,17 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  List<FlutterTrackInfo> sse_decode_list_flutter_track_info(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   List<FlutterVideoQuality> sse_decode_list_flutter_video_quality(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<FlutterVideoRendition> sse_decode_list_flutter_video_rendition(
     SseDeserializer deserializer,
   );
 
@@ -339,10 +671,26 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  List<int> sse_decode_list_prim_i_16_loose(SseDeserializer deserializer);
+
+  @protected
+  Int16List sse_decode_list_prim_i_16_strict(SseDeserializer deserializer);
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+  @protected
+  List<(String, bool)> sse_decode_list_record_string_bool(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<(String, String)> sse_decode_list_record_string_string(
+    SseDeserializer deserializer,
+  );
 
   @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
@@ -362,6 +710,24 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterPublisherStatus? sse_decode_opt_box_autoadd_flutter_publisher_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterSubscriberStatus? sse_decode_opt_box_autoadd_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterTicketInfo? sse_decode_opt_box_autoadd_flutter_ticket_info(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
   BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
 
   @protected
@@ -376,6 +742,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  (String, bool) sse_decode_record_string_bool(SseDeserializer deserializer);
+
+  @protected
   (String, String) sse_decode_record_string_string(
     SseDeserializer deserializer,
   );
@@ -385,6 +754,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   (int, int, int) sse_decode_record_u_8_u_8_u_8(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_u_16(SseDeserializer deserializer);
 
   @protected
   int sse_decode_u_32(SseDeserializer deserializer);
@@ -399,6 +771,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_decode_unit(SseDeserializer deserializer);
 
   @protected
+  void sse_encode_Map_String_String_None(
+    Map<String, String> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_Map_String_bool_None(
+    Map<String, bool> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer);
 
   @protected
@@ -406,6 +790,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_flutter_audio_samples(
+    FlutterAudioSamples self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_broadcast_catalog(
+    FlutterBroadcastCatalog self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_box_autoadd_flutter_catalog(
@@ -438,13 +834,73 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_flutter_publisher_status(
+    FlutterPublisherStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_subscriber_status(
+    FlutterSubscriberStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_ticket_info(
+    FlutterTicketInfo self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_video_frame(
+    FlutterVideoFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_u_8(int self, SseSerializer serializer);
 
   @protected
+  void sse_encode_f_32(double self, SseSerializer serializer);
+
+  @protected
   void sse_encode_f_64(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_flutter_audio_codec(
+    FlutterAudioCodec self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_audio_rendition(
+    FlutterAudioRendition self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_audio_samples(
+    FlutterAudioSamples self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_broadcast_catalog(
+    FlutterBroadcastCatalog self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_capture_device(
+    FlutterCaptureDevice self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_flutter_catalog(
@@ -459,8 +915,38 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_flutter_decoded_audio_frame(
+    FlutterDecodedAudioFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_decoded_video_frame(
+    FlutterDecodedVideoFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_flutter_direct_event(
     FlutterDirectEvent self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_encoded_audio_frame(
+    FlutterEncodedAudioFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_encoded_video_frame(
+    FlutterEncodedVideoFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_encoder_preset(
+    FlutterEncoderPreset self,
     SseSerializer serializer,
   );
 
@@ -473,6 +959,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_flutter_group_order(
     FlutterGroupOrder self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_hardware_accel(
+    FlutterHardwareAccel self,
     SseSerializer serializer,
   );
 
@@ -507,8 +999,32 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_flutter_publisher_status(
+    FlutterPublisherStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_flutter_stream_event(
     FlutterStreamEvent self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_subscriber_status(
+    FlutterSubscriberStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_ticket_info(
+    FlutterTicketInfo self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_track_info(
+    FlutterTrackInfo self,
     SseSerializer serializer,
   );
 
@@ -525,8 +1041,32 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_flutter_video_codec(
+    FlutterVideoCodec self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_video_frame(
+    FlutterVideoFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_flutter_video_quality(
     FlutterVideoQuality self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_video_quality_ffmpeg(
+    FlutterVideoQualityFfmpeg self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_video_rendition(
+    FlutterVideoRendition self,
     SseSerializer serializer,
   );
 
@@ -537,14 +1077,38 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_i_16(int self, SseSerializer serializer);
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_String(List<String> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_flutter_audio_rendition(
+    List<FlutterAudioRendition> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_flutter_capture_device(
+    List<FlutterCaptureDevice> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_flutter_direct_event(
     List<FlutterDirectEvent> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_flutter_encoded_video_frame(
+    List<FlutterEncodedVideoFrame> self,
     SseSerializer serializer,
   );
 
@@ -573,8 +1137,20 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_list_flutter_track_info(
+    List<FlutterTrackInfo> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_flutter_video_quality(
     List<FlutterVideoQuality> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_flutter_video_rendition(
+    List<FlutterVideoRendition> self,
     SseSerializer serializer,
   );
 
@@ -585,11 +1161,35 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_list_prim_i_16_loose(
+    List<int> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_prim_i_16_strict(
+    Int16List self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_prim_u_8_strict(
     Uint8List self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_record_string_bool(
+    List<(String, bool)> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_record_string_string(
+    List<(String, String)> self,
     SseSerializer serializer,
   );
 
@@ -612,6 +1212,27 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_opt_box_autoadd_flutter_publisher_status(
+    FlutterPublisherStatus? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_flutter_subscriber_status(
+    FlutterSubscriberStatus? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_flutter_ticket_info(
+    FlutterTicketInfo? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer);
 
   @protected
@@ -623,6 +1244,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_quality_constraints(
     QualityConstraints self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_record_string_bool(
+    (String, bool) self,
     SseSerializer serializer,
   );
 
@@ -640,6 +1267,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     (int, int, int) self,
     SseSerializer serializer,
   );
+
+  @protected
+  void sse_encode_u_16(int self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_32(int self, SseSerializer serializer);

@@ -52,6 +52,8 @@ dependencies:
   
   # WebRTC for live streaming
   flutter_webrtc: ^0.12.8
+  flutter_screen_recording: ^2.0.24
+  flutter_foreground_task: ^9.1.0
 
 dependency_overrides:
   # Force specific versions that work together without CameraX beta issues

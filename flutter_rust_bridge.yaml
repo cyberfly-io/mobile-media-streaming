@@ -1,3 +1,3 @@
-rust_input: "crate::api::simple, crate::api::flutter_api, crate::api::direct_flutter_api, crate::api::live_flutter_api, crate::api::moq_flutter_api"
+rust_input: "crate::api::simple, crate::api::flutter_api, crate::api::direct_flutter_api, crate::api::live_flutter_api, crate::api::moq_flutter_api, crate::api::ffmpeg_flutter_api, crate::api::iroh_live_flutter_api"
 rust_root: rust/
 dart_output: lib/src/rust

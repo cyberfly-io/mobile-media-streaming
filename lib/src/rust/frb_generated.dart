@@ -4,7 +4,9 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/direct_flutter_api.dart';
+import 'api/ffmpeg_flutter_api.dart';
 import 'api/flutter_api.dart';
+import 'api/iroh_live_flutter_api.dart';
 import 'api/live_flutter_api.dart';
 import 'api/moq_flutter_api.dart';
 import 'api/simple.dart';
@@ -70,7 +72,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => 1138616039;
+  int get rustContentHash => 908583296;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -133,6 +135,121 @@ abstract class RustLibApi extends BaseApi {
     required List<int> data,
   });
 
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateAudioDecoder({
+    required FlutterAudioCodec codec,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateAudioEncoder({
+    required FlutterAudioCodec codec,
+    required int sampleRate,
+    required int channels,
+    required int bitrateKbps,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateMusicEncoder();
+
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegCreateQualityLadder({
+    required FlutterVideoQualityFfmpeg sourceQuality,
+    required FlutterVideoCodec codec,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVideoDecoder({
+    required FlutterVideoCodec codec,
+    required FlutterHardwareAccel hardware,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVideoEncoder({
+    required FlutterVideoQualityFfmpeg quality,
+    required FlutterVideoCodec codec,
+    required FlutterHardwareAccel hardware,
+    required FlutterEncoderPreset preset,
+    int? bitrateKbps,
+    required bool lowLatency,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVoiceEncoder();
+
+  Future<FlutterDecodedAudioFrame>
+  crateApiFfmpegFlutterApiFfmpegDecodeAudioFrame({
+    required List<int> data,
+    required PlatformInt64 ptsUs,
+    required FlutterAudioCodec codec,
+  });
+
+  Future<FlutterDecodedVideoFrame>
+  crateApiFfmpegFlutterApiFfmpegDecodeVideoFrame({
+    required List<int> data,
+    required PlatformInt64 ptsUs,
+    required bool isKeyframe,
+    required FlutterVideoQualityFfmpeg quality,
+  });
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyAudioDecoder();
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyAudioEncoder();
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyQualityLadder();
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyVideoDecoder();
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyVideoEncoder();
+
+  Future<FlutterHardwareAccel> crateApiFfmpegFlutterApiFfmpegDetectHardware();
+
+  Future<List<FlutterEncodedVideoFrame>>
+  crateApiFfmpegFlutterApiFfmpegEncodeAllQualities({
+    required List<int> rawFrame,
+    required PlatformInt64 ptsUs,
+  });
+
+  Future<FlutterEncodedAudioFrame>
+  crateApiFfmpegFlutterApiFfmpegEncodeAudioFrame({
+    required List<int> pcmSamples,
+    required PlatformInt64 ptsUs,
+  });
+
+  Future<FlutterEncodedVideoFrame>
+  crateApiFfmpegFlutterApiFfmpegEncodeVideoFrame({
+    required List<int> rawFrame,
+    required PlatformInt64 ptsUs,
+  });
+
+  Future<List<FlutterEncodedVideoFrame>>
+  crateApiFfmpegFlutterApiFfmpegFlushVideoEncoder();
+
+  Future<int> crateApiFfmpegFlutterApiFfmpegGetAudioBitrate({
+    required FlutterAudioCodec codec,
+    required bool highQuality,
+  });
+
+  Future<String> crateApiFfmpegFlutterApiFfmpegGetAudioMimeType({
+    required FlutterAudioCodec codec,
+  });
+
+  Future<(int, int)> crateApiFfmpegFlutterApiFfmpegGetQualityDimensions({
+    required FlutterVideoQualityFfmpeg quality,
+  });
+
+  Future<int> crateApiFfmpegFlutterApiFfmpegGetRecommendedBitrate({
+    required FlutterVideoQualityFfmpeg quality,
+  });
+
+  Future<String?> crateApiFfmpegFlutterApiFfmpegGetVersion();
+
+  Future<String> crateApiFfmpegFlutterApiFfmpegGetVideoMimeType({
+    required FlutterVideoCodec codec,
+  });
+
+  Future<bool> crateApiFfmpegFlutterApiFfmpegIsAvailable();
+
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListAudioCodecs();
+
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListHardwareAccels();
+
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListVideoCodecs();
+
+  Future<void> crateApiFfmpegFlutterApiFfmpegResetVideoEncoder();
+
   Future<List<FlutterVideoQuality>>
   crateApiLiveFlutterApiGetAllVideoQualities();
 
@@ -173,6 +290,153 @@ abstract class RustLibApi extends BaseApi {
   Future<String> crateApiDirectFlutterApiInitDirectStreaming();
 
   Future<String> crateApiFlutterApiInitStreamingNode();
+
+  String? crateApiIrohLiveFlutterApiIrohCaptureCurrentDevice();
+
+  FlutterVideoFrame crateApiIrohLiveFlutterApiIrohCaptureGetTestFrame({
+    required int width,
+    required int height,
+    required String pattern,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohCaptureInit();
+
+  List<FlutterCaptureDevice> crateApiIrohLiveFlutterApiIrohCaptureListDevices();
+
+  bool crateApiIrohLiveFlutterApiIrohCaptureStart({required String deviceId});
+
+  bool crateApiIrohLiveFlutterApiIrohCaptureStop();
+
+  FlutterBroadcastCatalog crateApiIrohLiveFlutterApiIrohCatalogCreate({
+    required String broadcastId,
+    required List<String> videoRenditions,
+    required List<String> audioRenditions,
+  });
+
+  String crateApiIrohLiveFlutterApiIrohCatalogToJson({
+    required FlutterBroadcastCatalog catalog,
+  });
+
+  List<FlutterAudioRendition> crateApiIrohLiveFlutterApiIrohGetAudioPresets();
+
+  Map<String, bool> crateApiIrohLiveFlutterApiIrohGetFeatures();
+
+  List<String> crateApiIrohLiveFlutterApiIrohGetSupportedAudioCodecs();
+
+  List<String> crateApiIrohLiveFlutterApiIrohGetSupportedVideoCodecs();
+
+  String crateApiIrohLiveFlutterApiIrohGetVersion();
+
+  List<FlutterVideoRendition> crateApiIrohLiveFlutterApiIrohGetVideoPresets();
+
+  bool crateApiIrohLiveFlutterApiIrohIsCodecHwAccelerated({
+    required String codec,
+  });
+
+  Future<String> crateApiIrohLiveFlutterApiIrohNodeGetEndpointId();
+
+  Future<String> crateApiIrohLiveFlutterApiIrohNodeInit();
+
+  Future<void> crateApiIrohLiveFlutterApiIrohNodeShutdown();
+
+  bool crateApiIrohLiveFlutterApiIrohPublishCreate({
+    required String publisherId,
+  });
+
+  Future<String> crateApiIrohLiveFlutterApiIrohPublishCreateAsync({
+    required String publisherId,
+    required String broadcastName,
+  });
+
+  FlutterPublisherStatus? crateApiIrohLiveFlutterApiIrohPublishGetStatus({
+    required String publisherId,
+  });
+
+  String? crateApiIrohLiveFlutterApiIrohPublishGetTicket({
+    required String publisherId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishPushAudio({
+    required String publisherId,
+    required FlutterAudioSamples samples,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishPushVideo({
+    required String publisherId,
+    required FlutterVideoFrame frame,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishRemove({
+    required String publisherId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishSetVideoRenditions({
+    required String publisherId,
+    required List<String> renditions,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishStart({
+    required String publisherId,
+  });
+
+  Future<void> crateApiIrohLiveFlutterApiIrohPublishStartAsync({
+    required String publisherId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohPublishStop({required String publisherId});
+
+  Future<void> crateApiIrohLiveFlutterApiIrohPublishStopAsync({
+    required String publisherId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeConnect({
+    required String subscriberId,
+  });
+
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeConnectAsync({
+    required String subscriberId,
+    required String ticketString,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeCreate({
+    required String subscriberId,
+    required String broadcastId,
+  });
+
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeCreateAsync({
+    required String subscriberId,
+    required String broadcastId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeDisconnect({
+    required String subscriberId,
+  });
+
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeDisconnectAsync({
+    required String subscriberId,
+  });
+
+  FlutterSubscriberStatus? crateApiIrohLiveFlutterApiIrohSubscribeGetStatus({
+    required String subscriberId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeRemove({
+    required String subscriberId,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeSetQuality({
+    required String subscriberId,
+    required String quality,
+  });
+
+  bool crateApiIrohLiveFlutterApiIrohSubscribeSimulateVideoReceive({
+    required String subscriberId,
+    required BigInt frameSize,
+  });
+
+  FlutterTicketInfo? crateApiIrohLiveFlutterApiIrohTicketParse({
+    required String ticketString,
+  });
 
   bool crateApiFlutterApiIsConnectedToStream();
 
@@ -806,6 +1070,1004 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "direct_send_signal", argNames: ["data"]);
 
   @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateAudioDecoder({
+    required FlutterAudioCodec codec,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_audio_codec(codec, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 14,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateAudioDecoderConstMeta,
+        argValues: [codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateAudioDecoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_audio_decoder",
+        argNames: ["codec"],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateAudioEncoder({
+    required FlutterAudioCodec codec,
+    required int sampleRate,
+    required int channels,
+    required int bitrateKbps,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_audio_codec(codec, serializer);
+          sse_encode_u_32(sampleRate, serializer);
+          sse_encode_u_32(channels, serializer);
+          sse_encode_u_32(bitrateKbps, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 15,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateAudioEncoderConstMeta,
+        argValues: [codec, sampleRate, channels, bitrateKbps],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateAudioEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_audio_encoder",
+        argNames: ["codec", "sampleRate", "channels", "bitrateKbps"],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateMusicEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 16,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateMusicEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateMusicEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_music_encoder",
+        argNames: [],
+      );
+
+  @override
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegCreateQualityLadder({
+    required FlutterVideoQualityFfmpeg sourceQuality,
+    required FlutterVideoCodec codec,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_quality_ffmpeg(sourceQuality, serializer);
+          sse_encode_flutter_video_codec(codec, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 17,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateQualityLadderConstMeta,
+        argValues: [sourceQuality, codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateQualityLadderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_quality_ladder",
+        argNames: ["sourceQuality", "codec"],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVideoDecoder({
+    required FlutterVideoCodec codec,
+    required FlutterHardwareAccel hardware,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_codec(codec, serializer);
+          sse_encode_flutter_hardware_accel(hardware, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 18,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateVideoDecoderConstMeta,
+        argValues: [codec, hardware],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateVideoDecoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_video_decoder",
+        argNames: ["codec", "hardware"],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVideoEncoder({
+    required FlutterVideoQualityFfmpeg quality,
+    required FlutterVideoCodec codec,
+    required FlutterHardwareAccel hardware,
+    required FlutterEncoderPreset preset,
+    int? bitrateKbps,
+    required bool lowLatency,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_quality_ffmpeg(quality, serializer);
+          sse_encode_flutter_video_codec(codec, serializer);
+          sse_encode_flutter_hardware_accel(hardware, serializer);
+          sse_encode_flutter_encoder_preset(preset, serializer);
+          sse_encode_opt_box_autoadd_u_32(bitrateKbps, serializer);
+          sse_encode_bool(lowLatency, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 19,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateVideoEncoderConstMeta,
+        argValues: [quality, codec, hardware, preset, bitrateKbps, lowLatency],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateVideoEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_video_encoder",
+        argNames: [
+          "quality",
+          "codec",
+          "hardware",
+          "preset",
+          "bitrateKbps",
+          "lowLatency",
+        ],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegCreateVoiceEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 20,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegCreateVoiceEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegCreateVoiceEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_create_voice_encoder",
+        argNames: [],
+      );
+
+  @override
+  Future<FlutterDecodedAudioFrame>
+  crateApiFfmpegFlutterApiFfmpegDecodeAudioFrame({
+    required List<int> data,
+    required PlatformInt64 ptsUs,
+    required FlutterAudioCodec codec,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_list_prim_u_8_loose(data, serializer);
+          sse_encode_i_64(ptsUs, serializer);
+          sse_encode_flutter_audio_codec(codec, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 21,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_decoded_audio_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDecodeAudioFrameConstMeta,
+        argValues: [data, ptsUs, codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegDecodeAudioFrameConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_decode_audio_frame",
+        argNames: ["data", "ptsUs", "codec"],
+      );
+
+  @override
+  Future<FlutterDecodedVideoFrame>
+  crateApiFfmpegFlutterApiFfmpegDecodeVideoFrame({
+    required List<int> data,
+    required PlatformInt64 ptsUs,
+    required bool isKeyframe,
+    required FlutterVideoQualityFfmpeg quality,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_list_prim_u_8_loose(data, serializer);
+          sse_encode_i_64(ptsUs, serializer);
+          sse_encode_bool(isKeyframe, serializer);
+          sse_encode_flutter_video_quality_ffmpeg(quality, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 22,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_decoded_video_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDecodeVideoFrameConstMeta,
+        argValues: [data, ptsUs, isKeyframe, quality],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegDecodeVideoFrameConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_decode_video_frame",
+        argNames: ["data", "ptsUs", "isKeyframe", "quality"],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyAudioDecoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 23,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDestroyAudioDecoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegDestroyAudioDecoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_destroy_audio_decoder",
+        argNames: [],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyAudioEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 24,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDestroyAudioEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegDestroyAudioEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_destroy_audio_encoder",
+        argNames: [],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyQualityLadder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 25,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDestroyQualityLadderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegDestroyQualityLadderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_destroy_quality_ladder",
+        argNames: [],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyVideoDecoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 26,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDestroyVideoDecoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegDestroyVideoDecoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_destroy_video_decoder",
+        argNames: [],
+      );
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegDestroyVideoEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 27,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDestroyVideoEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegDestroyVideoEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_destroy_video_encoder",
+        argNames: [],
+      );
+
+  @override
+  Future<FlutterHardwareAccel> crateApiFfmpegFlutterApiFfmpegDetectHardware() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 28,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_hardware_accel,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegDetectHardwareConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegDetectHardwareConstMeta =>
+      const TaskConstMeta(debugName: "ffmpeg_detect_hardware", argNames: []);
+
+  @override
+  Future<List<FlutterEncodedVideoFrame>>
+  crateApiFfmpegFlutterApiFfmpegEncodeAllQualities({
+    required List<int> rawFrame,
+    required PlatformInt64 ptsUs,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_list_prim_u_8_loose(rawFrame, serializer);
+          sse_encode_i_64(ptsUs, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 29,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_flutter_encoded_video_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegEncodeAllQualitiesConstMeta,
+        argValues: [rawFrame, ptsUs],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegEncodeAllQualitiesConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_encode_all_qualities",
+        argNames: ["rawFrame", "ptsUs"],
+      );
+
+  @override
+  Future<FlutterEncodedAudioFrame>
+  crateApiFfmpegFlutterApiFfmpegEncodeAudioFrame({
+    required List<int> pcmSamples,
+    required PlatformInt64 ptsUs,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_list_prim_i_16_loose(pcmSamples, serializer);
+          sse_encode_i_64(ptsUs, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 30,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_encoded_audio_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegEncodeAudioFrameConstMeta,
+        argValues: [pcmSamples, ptsUs],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegEncodeAudioFrameConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_encode_audio_frame",
+        argNames: ["pcmSamples", "ptsUs"],
+      );
+
+  @override
+  Future<FlutterEncodedVideoFrame>
+  crateApiFfmpegFlutterApiFfmpegEncodeVideoFrame({
+    required List<int> rawFrame,
+    required PlatformInt64 ptsUs,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_list_prim_u_8_loose(rawFrame, serializer);
+          sse_encode_i_64(ptsUs, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 31,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_encoded_video_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegEncodeVideoFrameConstMeta,
+        argValues: [rawFrame, ptsUs],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegEncodeVideoFrameConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_encode_video_frame",
+        argNames: ["rawFrame", "ptsUs"],
+      );
+
+  @override
+  Future<List<FlutterEncodedVideoFrame>>
+  crateApiFfmpegFlutterApiFfmpegFlushVideoEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 32,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_flutter_encoded_video_frame,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegFlushVideoEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegFlushVideoEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_flush_video_encoder",
+        argNames: [],
+      );
+
+  @override
+  Future<int> crateApiFfmpegFlutterApiFfmpegGetAudioBitrate({
+    required FlutterAudioCodec codec,
+    required bool highQuality,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_audio_codec(codec, serializer);
+          sse_encode_bool(highQuality, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 33,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegGetAudioBitrateConstMeta,
+        argValues: [codec, highQuality],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegGetAudioBitrateConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_get_audio_bitrate",
+        argNames: ["codec", "highQuality"],
+      );
+
+  @override
+  Future<String> crateApiFfmpegFlutterApiFfmpegGetAudioMimeType({
+    required FlutterAudioCodec codec,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_audio_codec(codec, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 34,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegGetAudioMimeTypeConstMeta,
+        argValues: [codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegGetAudioMimeTypeConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_get_audio_mime_type",
+        argNames: ["codec"],
+      );
+
+  @override
+  Future<(int, int)> crateApiFfmpegFlutterApiFfmpegGetQualityDimensions({
+    required FlutterVideoQualityFfmpeg quality,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_quality_ffmpeg(quality, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 35,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_record_u_32_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegGetQualityDimensionsConstMeta,
+        argValues: [quality],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegGetQualityDimensionsConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_get_quality_dimensions",
+        argNames: ["quality"],
+      );
+
+  @override
+  Future<int> crateApiFfmpegFlutterApiFfmpegGetRecommendedBitrate({
+    required FlutterVideoQualityFfmpeg quality,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_quality_ffmpeg(quality, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 36,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiFfmpegFlutterApiFfmpegGetRecommendedBitrateConstMeta,
+        argValues: [quality],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegGetRecommendedBitrateConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_get_recommended_bitrate",
+        argNames: ["quality"],
+      );
+
+  @override
+  Future<String?> crateApiFfmpegFlutterApiFfmpegGetVersion() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 37,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegGetVersionConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegGetVersionConstMeta =>
+      const TaskConstMeta(debugName: "ffmpeg_get_version", argNames: []);
+
+  @override
+  Future<String> crateApiFfmpegFlutterApiFfmpegGetVideoMimeType({
+    required FlutterVideoCodec codec,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_flutter_video_codec(codec, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 38,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegGetVideoMimeTypeConstMeta,
+        argValues: [codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegGetVideoMimeTypeConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_get_video_mime_type",
+        argNames: ["codec"],
+      );
+
+  @override
+  Future<bool> crateApiFfmpegFlutterApiFfmpegIsAvailable() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 39,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegIsAvailableConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegIsAvailableConstMeta =>
+      const TaskConstMeta(debugName: "ffmpeg_is_available", argNames: []);
+
+  @override
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListAudioCodecs() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 40,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegListAudioCodecsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegListAudioCodecsConstMeta =>
+      const TaskConstMeta(debugName: "ffmpeg_list_audio_codecs", argNames: []);
+
+  @override
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListHardwareAccels() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 41,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegListHardwareAccelsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiFfmpegFlutterApiFfmpegListHardwareAccelsConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_list_hardware_accels",
+        argNames: [],
+      );
+
+  @override
+  Future<List<String>> crateApiFfmpegFlutterApiFfmpegListVideoCodecs() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 42,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegListVideoCodecsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegListVideoCodecsConstMeta =>
+      const TaskConstMeta(debugName: "ffmpeg_list_video_codecs", argNames: []);
+
+  @override
+  Future<void> crateApiFfmpegFlutterApiFfmpegResetVideoEncoder() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 43,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiFfmpegFlutterApiFfmpegResetVideoEncoderConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFfmpegFlutterApiFfmpegResetVideoEncoderConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffmpeg_reset_video_encoder",
+        argNames: [],
+      );
+
+  @override
   Future<List<FlutterVideoQuality>>
   crateApiLiveFlutterApiGetAllVideoQualities() {
     return handler.executeNormal(
@@ -815,7 +2077,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 14,
+            funcId: 44,
             port: port_,
           );
         },
@@ -842,7 +2104,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 15,
+            funcId: 45,
             port: port_,
           );
         },
@@ -869,7 +2131,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 16,
+            funcId: 46,
             port: port_,
           );
         },
@@ -896,7 +2158,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 17,
+            funcId: 47,
             port: port_,
           );
         },
@@ -923,7 +2185,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 18,
+            funcId: 48,
             port: port_,
           );
         },
@@ -951,7 +2213,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 19,
+            funcId: 49,
             port: port_,
           );
         },
@@ -978,7 +2240,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 20,
+            funcId: 50,
             port: port_,
           );
         },
@@ -1008,7 +2270,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 21,
+            funcId: 51,
             port: port_,
           );
         },
@@ -1038,7 +2300,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_quality(quality, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 52)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_quality_constraints,
@@ -1069,7 +2331,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 23,
+            funcId: 53,
             port: port_,
           );
         },
@@ -1099,7 +2361,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 24,
+            funcId: 54,
             port: port_,
           );
         },
@@ -1124,7 +2386,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(name, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 25)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 55)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -1149,7 +2411,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 26,
+            funcId: 56,
             port: port_,
           );
         },
@@ -1176,7 +2438,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 27,
+            funcId: 57,
             port: port_,
           );
         },
@@ -1203,7 +2465,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 28,
+            funcId: 58,
             port: port_,
           );
         },
@@ -1230,7 +2492,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 29,
+            funcId: 59,
             port: port_,
           );
         },
@@ -1257,7 +2519,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 30,
+            funcId: 60,
             port: port_,
           );
         },
@@ -1276,12 +2538,1196 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "init_streaming_node", argNames: []);
 
   @override
+  String? crateApiIrohLiveFlutterApiIrohCaptureCurrentDevice() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 61)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureCurrentDeviceConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohCaptureCurrentDeviceConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_capture_current_device",
+        argNames: [],
+      );
+
+  @override
+  FlutterVideoFrame crateApiIrohLiveFlutterApiIrohCaptureGetTestFrame({
+    required int width,
+    required int height,
+    required String pattern,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_u_32(width, serializer);
+          sse_encode_u_32(height, serializer);
+          sse_encode_String(pattern, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 62)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_video_frame,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureGetTestFrameConstMeta,
+        argValues: [width, height, pattern],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohCaptureGetTestFrameConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_capture_get_test_frame",
+        argNames: ["width", "height", "pattern"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohCaptureInit() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 63)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureInitConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohCaptureInitConstMeta =>
+      const TaskConstMeta(debugName: "iroh_capture_init", argNames: []);
+
+  @override
+  List<FlutterCaptureDevice>
+  crateApiIrohLiveFlutterApiIrohCaptureListDevices() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 64)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_flutter_capture_device,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureListDevicesConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohCaptureListDevicesConstMeta =>
+      const TaskConstMeta(debugName: "iroh_capture_list_devices", argNames: []);
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohCaptureStart({required String deviceId}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(deviceId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 65)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureStartConstMeta,
+        argValues: [deviceId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohCaptureStartConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_capture_start",
+        argNames: ["deviceId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohCaptureStop() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 66)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCaptureStopConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohCaptureStopConstMeta =>
+      const TaskConstMeta(debugName: "iroh_capture_stop", argNames: []);
+
+  @override
+  FlutterBroadcastCatalog crateApiIrohLiveFlutterApiIrohCatalogCreate({
+    required String broadcastId,
+    required List<String> videoRenditions,
+    required List<String> audioRenditions,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(broadcastId, serializer);
+          sse_encode_list_String(videoRenditions, serializer);
+          sse_encode_list_String(audioRenditions, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 67)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_flutter_broadcast_catalog,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCatalogCreateConstMeta,
+        argValues: [broadcastId, videoRenditions, audioRenditions],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohCatalogCreateConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_catalog_create",
+        argNames: ["broadcastId", "videoRenditions", "audioRenditions"],
+      );
+
+  @override
+  String crateApiIrohLiveFlutterApiIrohCatalogToJson({
+    required FlutterBroadcastCatalog catalog,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_flutter_broadcast_catalog(catalog, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 68)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohCatalogToJsonConstMeta,
+        argValues: [catalog],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohCatalogToJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_catalog_to_json",
+        argNames: ["catalog"],
+      );
+
+  @override
+  List<FlutterAudioRendition> crateApiIrohLiveFlutterApiIrohGetAudioPresets() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 69)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_flutter_audio_rendition,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohGetAudioPresetsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohGetAudioPresetsConstMeta =>
+      const TaskConstMeta(debugName: "iroh_get_audio_presets", argNames: []);
+
+  @override
+  Map<String, bool> crateApiIrohLiveFlutterApiIrohGetFeatures() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 70)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_Map_String_bool_None,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohGetFeaturesConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohGetFeaturesConstMeta =>
+      const TaskConstMeta(debugName: "iroh_get_features", argNames: []);
+
+  @override
+  List<String> crateApiIrohLiveFlutterApiIrohGetSupportedAudioCodecs() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 71)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohGetSupportedAudioCodecsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohGetSupportedAudioCodecsConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_get_supported_audio_codecs",
+        argNames: [],
+      );
+
+  @override
+  List<String> crateApiIrohLiveFlutterApiIrohGetSupportedVideoCodecs() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 72)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohGetSupportedVideoCodecsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohGetSupportedVideoCodecsConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_get_supported_video_codecs",
+        argNames: [],
+      );
+
+  @override
+  String crateApiIrohLiveFlutterApiIrohGetVersion() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 73)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohGetVersionConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohGetVersionConstMeta =>
+      const TaskConstMeta(debugName: "iroh_get_version", argNames: []);
+
+  @override
+  List<FlutterVideoRendition> crateApiIrohLiveFlutterApiIrohGetVideoPresets() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 74)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_flutter_video_rendition,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohGetVideoPresetsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohGetVideoPresetsConstMeta =>
+      const TaskConstMeta(debugName: "iroh_get_video_presets", argNames: []);
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohIsCodecHwAccelerated({
+    required String codec,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(codec, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 75)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohIsCodecHwAcceleratedConstMeta,
+        argValues: [codec],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohIsCodecHwAcceleratedConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_is_codec_hw_accelerated",
+        argNames: ["codec"],
+      );
+
+  @override
+  Future<String> crateApiIrohLiveFlutterApiIrohNodeGetEndpointId() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 76,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohNodeGetEndpointIdConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohNodeGetEndpointIdConstMeta =>
+      const TaskConstMeta(debugName: "iroh_node_get_endpoint_id", argNames: []);
+
+  @override
+  Future<String> crateApiIrohLiveFlutterApiIrohNodeInit() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 77,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohNodeInitConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohNodeInitConstMeta =>
+      const TaskConstMeta(debugName: "iroh_node_init", argNames: []);
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohNodeShutdown() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 78,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohNodeShutdownConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohNodeShutdownConstMeta =>
+      const TaskConstMeta(debugName: "iroh_node_shutdown", argNames: []);
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishCreate({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 79)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishCreateConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishCreateConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_create",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  Future<String> crateApiIrohLiveFlutterApiIrohPublishCreateAsync({
+    required String publisherId,
+    required String broadcastName,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          sse_encode_String(broadcastName, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 80,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishCreateAsyncConstMeta,
+        argValues: [publisherId, broadcastName],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohPublishCreateAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_create_async",
+        argNames: ["publisherId", "broadcastName"],
+      );
+
+  @override
+  FlutterPublisherStatus? crateApiIrohLiveFlutterApiIrohPublishGetStatus({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 81)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_box_autoadd_flutter_publisher_status,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishGetStatusConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishGetStatusConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_get_status",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  String? crateApiIrohLiveFlutterApiIrohPublishGetTicket({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 82)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishGetTicketConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishGetTicketConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_get_ticket",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishPushAudio({
+    required String publisherId,
+    required FlutterAudioSamples samples,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          sse_encode_box_autoadd_flutter_audio_samples(samples, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 83)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishPushAudioConstMeta,
+        argValues: [publisherId, samples],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishPushAudioConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_push_audio",
+        argNames: ["publisherId", "samples"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishPushVideo({
+    required String publisherId,
+    required FlutterVideoFrame frame,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          sse_encode_box_autoadd_flutter_video_frame(frame, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 84)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishPushVideoConstMeta,
+        argValues: [publisherId, frame],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishPushVideoConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_push_video",
+        argNames: ["publisherId", "frame"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishRemove({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 85)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishRemoveConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishRemoveConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_remove",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishSetVideoRenditions({
+    required String publisherId,
+    required List<String> renditions,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          sse_encode_list_String(renditions, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 86)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohPublishSetVideoRenditionsConstMeta,
+        argValues: [publisherId, renditions],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohPublishSetVideoRenditionsConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_set_video_renditions",
+        argNames: ["publisherId", "renditions"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishStart({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 87)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishStartConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishStartConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_start",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohPublishStartAsync({
+    required String publisherId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 88,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishStartAsyncConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishStartAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_start_async",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohPublishStop({
+    required String publisherId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 89)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishStopConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishStopConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_stop",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohPublishStopAsync({
+    required String publisherId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(publisherId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 90,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohPublishStopAsyncConstMeta,
+        argValues: [publisherId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohPublishStopAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_publish_stop_async",
+        argNames: ["publisherId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeConnect({
+    required String subscriberId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 91)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeConnectConstMeta,
+        argValues: [subscriberId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohSubscribeConnectConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_connect",
+        argNames: ["subscriberId"],
+      );
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeConnectAsync({
+    required String subscriberId,
+    required String ticketString,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          sse_encode_String(ticketString, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 92,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohSubscribeConnectAsyncConstMeta,
+        argValues: [subscriberId, ticketString],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeConnectAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_connect_async",
+        argNames: ["subscriberId", "ticketString"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeCreate({
+    required String subscriberId,
+    required String broadcastId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          sse_encode_String(broadcastId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 93)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeCreateConstMeta,
+        argValues: [subscriberId, broadcastId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohSubscribeCreateConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_create",
+        argNames: ["subscriberId", "broadcastId"],
+      );
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeCreateAsync({
+    required String subscriberId,
+    required String broadcastId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          sse_encode_String(broadcastId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 94,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeCreateAsyncConstMeta,
+        argValues: [subscriberId, broadcastId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeCreateAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_create_async",
+        argNames: ["subscriberId", "broadcastId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeDisconnect({
+    required String subscriberId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 95)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeDisconnectConstMeta,
+        argValues: [subscriberId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeDisconnectConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_disconnect",
+        argNames: ["subscriberId"],
+      );
+
+  @override
+  Future<void> crateApiIrohLiveFlutterApiIrohSubscribeDisconnectAsync({
+    required String subscriberId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 96,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohSubscribeDisconnectAsyncConstMeta,
+        argValues: [subscriberId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeDisconnectAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_disconnect_async",
+        argNames: ["subscriberId"],
+      );
+
+  @override
+  FlutterSubscriberStatus? crateApiIrohLiveFlutterApiIrohSubscribeGetStatus({
+    required String subscriberId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 97)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_box_autoadd_flutter_subscriber_status,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeGetStatusConstMeta,
+        argValues: [subscriberId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeGetStatusConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_get_status",
+        argNames: ["subscriberId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeRemove({
+    required String subscriberId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 98)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeRemoveConstMeta,
+        argValues: [subscriberId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohSubscribeRemoveConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_remove",
+        argNames: ["subscriberId"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeSetQuality({
+    required String subscriberId,
+    required String quality,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          sse_encode_String(quality, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 99)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohSubscribeSetQualityConstMeta,
+        argValues: [subscriberId, quality],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeSetQualityConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_set_quality",
+        argNames: ["subscriberId", "quality"],
+      );
+
+  @override
+  bool crateApiIrohLiveFlutterApiIrohSubscribeSimulateVideoReceive({
+    required String subscriberId,
+    required BigInt frameSize,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(subscriberId, serializer);
+          sse_encode_u_64(frameSize, serializer);
+          return pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 100,
+          )!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiIrohLiveFlutterApiIrohSubscribeSimulateVideoReceiveConstMeta,
+        argValues: [subscriberId, frameSize],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiIrohLiveFlutterApiIrohSubscribeSimulateVideoReceiveConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_subscribe_simulate_video_receive",
+        argNames: ["subscriberId", "frameSize"],
+      );
+
+  @override
+  FlutterTicketInfo? crateApiIrohLiveFlutterApiIrohTicketParse({
+    required String ticketString,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(ticketString, serializer);
+          return pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 101,
+          )!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_box_autoadd_flutter_ticket_info,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiIrohLiveFlutterApiIrohTicketParseConstMeta,
+        argValues: [ticketString],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiIrohLiveFlutterApiIrohTicketParseConstMeta =>
+      const TaskConstMeta(
+        debugName: "iroh_ticket_parse",
+        argNames: ["ticketString"],
+      );
+
+  @override
   bool crateApiFlutterApiIsConnectedToStream() {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 31)!;
+          return pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 102,
+          )!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -1303,7 +3749,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 32)!;
+          return pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 103,
+          )!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -1330,7 +3780,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
+          return pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 104,
+          )!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -1360,7 +3814,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 34,
+            funcId: 105,
             port: port_,
           );
         },
@@ -1393,7 +3847,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 35,
+            funcId: 106,
             port: port_,
           );
         },
@@ -1428,7 +3882,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 36,
+            funcId: 107,
             port: port_,
           );
         },
@@ -1458,7 +3912,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 37,
+            funcId: 108,
             port: port_,
           );
         },
@@ -1485,7 +3939,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 38,
+            funcId: 109,
             port: port_,
           );
         },
@@ -1512,7 +3966,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 39,
+            funcId: 110,
             port: port_,
           );
         },
@@ -1544,7 +3998,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 40,
+            funcId: 111,
             port: port_,
           );
         },
@@ -1585,7 +4039,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 41,
+            funcId: 112,
             port: port_,
           );
         },
@@ -1621,7 +4075,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 42,
+            funcId: 113,
             port: port_,
           );
         },
@@ -1649,7 +4103,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 43,
+            funcId: 114,
             port: port_,
           );
         },
@@ -1689,7 +4143,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 44,
+            funcId: 115,
             port: port_,
           );
         },
@@ -1733,7 +4187,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 45,
+            funcId: 116,
             port: port_,
           );
         },
@@ -1768,7 +4222,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 46,
+            funcId: 117,
             port: port_,
           );
         },
@@ -1803,7 +4257,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 47,
+            funcId: 118,
             port: port_,
           );
         },
@@ -1836,7 +4290,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 48,
+            funcId: 119,
             port: port_,
           );
         },
@@ -1871,7 +4325,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 49,
+            funcId: 120,
             port: port_,
           );
         },
@@ -1901,7 +4355,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 50,
+            funcId: 121,
             port: port_,
           );
         },
@@ -1931,7 +4385,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 51,
+            funcId: 122,
             port: port_,
           );
         },
@@ -1976,7 +4430,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 52,
+            funcId: 123,
             port: port_,
           );
         },
@@ -2027,7 +4481,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 53,
+            funcId: 124,
             port: port_,
           );
         },
@@ -2070,7 +4524,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 54,
+            funcId: 125,
             port: port_,
           );
         },
@@ -2114,7 +4568,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 55,
+            funcId: 126,
             port: port_,
           );
         },
@@ -2141,7 +4595,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 56,
+            funcId: 127,
             port: port_,
           );
         },
@@ -2171,7 +4625,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 57,
+            funcId: 128,
             port: port_,
           );
         },
@@ -2202,7 +4656,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 58,
+            funcId: 129,
             port: port_,
           );
         },
@@ -2229,7 +4683,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 59,
+            funcId: 130,
             port: port_,
           );
         },
@@ -2256,7 +4710,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 60,
+            funcId: 131,
             port: port_,
           );
         },
@@ -2286,7 +4740,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 61,
+            funcId: 132,
             port: port_,
           );
         },
@@ -2317,7 +4771,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 62,
+            funcId: 133,
             port: port_,
           );
         },
@@ -2349,7 +4803,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 63,
+            funcId: 134,
             port: port_,
           );
         },
@@ -2382,7 +4836,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 64,
+            funcId: 135,
             port: port_,
           );
         },
@@ -2415,7 +4869,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 65,
+            funcId: 136,
             port: port_,
           );
         },
@@ -2454,7 +4908,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 66,
+            funcId: 137,
             port: port_,
           );
         },
@@ -2487,7 +4941,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 67,
+            funcId: 138,
             port: port_,
           );
         },
@@ -2520,7 +4974,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 68,
+            funcId: 139,
             port: port_,
           );
         },
@@ -2554,7 +5008,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 69,
+            funcId: 140,
             port: port_,
           );
         },
@@ -2595,7 +5049,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 70,
+            funcId: 141,
             port: port_,
           );
         },
@@ -2634,7 +5088,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 71,
+            funcId: 142,
             port: port_,
           );
         },
@@ -2664,7 +5118,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 72,
+            funcId: 143,
             port: port_,
           );
         },
@@ -2691,7 +5145,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 73,
+            funcId: 144,
             port: port_,
           );
         },
@@ -2718,7 +5172,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 74,
+            funcId: 145,
             port: port_,
           );
         },
@@ -2745,7 +5199,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 75,
+            funcId: 146,
             port: port_,
           );
         },
@@ -2772,7 +5226,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 76,
+            funcId: 147,
             port: port_,
           );
         },
@@ -2800,7 +5254,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 77,
+            funcId: 148,
             port: port_,
           );
         },
@@ -2830,7 +5284,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 78,
+            funcId: 149,
             port: port_,
           );
         },
@@ -2860,7 +5314,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 79,
+            funcId: 150,
             port: port_,
           );
         },
@@ -2887,7 +5341,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 80,
+            funcId: 151,
             port: port_,
           );
         },
@@ -2914,7 +5368,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 81,
+            funcId: 152,
             port: port_,
           );
         },
@@ -2933,6 +5387,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "stop_live_broadcast", argNames: []);
 
   @protected
+  Map<String, String> dco_decode_Map_String_String_None(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(
+      dco_decode_list_record_string_string(
+        raw,
+      ).map((e) => MapEntry(e.$1, e.$2)),
+    );
+  }
+
+  @protected
+  Map<String, bool> dco_decode_Map_String_bool_None(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(
+      dco_decode_list_record_string_bool(raw).map((e) => MapEntry(e.$1, e.$2)),
+    );
+  }
+
+  @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as String;
@@ -2948,6 +5420,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   double dco_decode_box_autoadd_f_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as double;
+  }
+
+  @protected
+  FlutterAudioSamples dco_decode_box_autoadd_flutter_audio_samples(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_audio_samples(raw);
+  }
+
+  @protected
+  FlutterBroadcastCatalog dco_decode_box_autoadd_flutter_broadcast_catalog(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_broadcast_catalog(raw);
   }
 
   @protected
@@ -2984,6 +5472,40 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterPublisherStatus dco_decode_box_autoadd_flutter_publisher_status(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_publisher_status(raw);
+  }
+
+  @protected
+  FlutterSubscriberStatus dco_decode_box_autoadd_flutter_subscriber_status(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_subscriber_status(raw);
+  }
+
+  @protected
+  FlutterTicketInfo dco_decode_box_autoadd_flutter_ticket_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_ticket_info(raw);
+  }
+
+  @protected
+  FlutterVideoFrame dco_decode_box_autoadd_flutter_video_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_flutter_video_frame(raw);
+  }
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
   BigInt dco_decode_box_autoadd_u_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_u_64(raw);
@@ -2996,9 +5518,79 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double dco_decode_f_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
   double dco_decode_f_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as double;
+  }
+
+  @protected
+  FlutterAudioCodec dco_decode_flutter_audio_codec(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlutterAudioCodec.values[raw as int];
+  }
+
+  @protected
+  FlutterAudioRendition dco_decode_flutter_audio_rendition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterAudioRendition(
+      name: dco_decode_String(arr[0]),
+      sampleRate: dco_decode_u_32(arr[1]),
+      channels: dco_decode_u_16(arr[2]),
+      bitrate: dco_decode_u_32(arr[3]),
+      codec: dco_decode_String(arr[4]),
+    );
+  }
+
+  @protected
+  FlutterAudioSamples dco_decode_flutter_audio_samples(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterAudioSamples(
+      data: dco_decode_list_prim_u_8_strict(arr[0]),
+      sampleRate: dco_decode_u_32(arr[1]),
+      channels: dco_decode_u_16(arr[2]),
+      timestampMs: dco_decode_u_64(arr[3]),
+      format: dco_decode_String(arr[4]),
+    );
+  }
+
+  @protected
+  FlutterBroadcastCatalog dco_decode_flutter_broadcast_catalog(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return FlutterBroadcastCatalog(
+      broadcastId: dco_decode_String(arr[0]),
+      videoTracks: dco_decode_list_flutter_track_info(arr[1]),
+      audioTracks: dco_decode_list_flutter_track_info(arr[2]),
+      createdAtMs: dco_decode_u_64(arr[3]),
+    );
+  }
+
+  @protected
+  FlutterCaptureDevice dco_decode_flutter_capture_device(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return FlutterCaptureDevice(
+      id: dco_decode_String(arr[0]),
+      name: dco_decode_String(arr[1]),
+      deviceType: dco_decode_String(arr[2]),
+      isDefault: dco_decode_bool(arr[3]),
+    );
   }
 
   @protected
@@ -3031,6 +5623,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       rttMs: dco_decode_u_64(arr[5]),
       qualityScore: dco_decode_u_32(arr[6]),
       recommendedQuality: dco_decode_flutter_video_quality(arr[7]),
+    );
+  }
+
+  @protected
+  FlutterDecodedAudioFrame dco_decode_flutter_decoded_audio_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return FlutterDecodedAudioFrame(
+      samples: dco_decode_list_prim_i_16_strict(arr[0]),
+      ptsUs: dco_decode_i_64(arr[1]),
+      sampleRate: dco_decode_u_32(arr[2]),
+      channels: dco_decode_u_32(arr[3]),
+    );
+  }
+
+  @protected
+  FlutterDecodedVideoFrame dco_decode_flutter_decoded_video_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterDecodedVideoFrame(
+      data: dco_decode_list_prim_u_8_strict(arr[0]),
+      width: dco_decode_u_32(arr[1]),
+      height: dco_decode_u_32(arr[2]),
+      ptsUs: dco_decode_i_64(arr[3]),
+      isKeyframe: dco_decode_bool(arr[4]),
     );
   }
 
@@ -3094,6 +5715,46 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterEncodedAudioFrame dco_decode_flutter_encoded_audio_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterEncodedAudioFrame(
+      data: dco_decode_list_prim_u_8_strict(arr[0]),
+      ptsUs: dco_decode_i_64(arr[1]),
+      durationUs: dco_decode_i_64(arr[2]),
+      samples: dco_decode_u_32(arr[3]),
+      codec: dco_decode_flutter_audio_codec(arr[4]),
+    );
+  }
+
+  @protected
+  FlutterEncodedVideoFrame dco_decode_flutter_encoded_video_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 9)
+      throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
+    return FlutterEncodedVideoFrame(
+      data: dco_decode_list_prim_u_8_strict(arr[0]),
+      ptsUs: dco_decode_i_64(arr[1]),
+      dtsUs: dco_decode_i_64(arr[2]),
+      isKeyframe: dco_decode_bool(arr[3]),
+      durationUs: dco_decode_i_64(arr[4]),
+      frameIndex: dco_decode_u_64(arr[5]),
+      codec: dco_decode_flutter_video_codec(arr[6]),
+      moqPriority: dco_decode_u_8(arr[7]),
+      moqTtlMs: dco_decode_u_64(arr[8]),
+    );
+  }
+
+  @protected
+  FlutterEncoderPreset dco_decode_flutter_encoder_preset(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlutterEncoderPreset.values[raw as int];
+  }
+
+  @protected
   FlutterFilterType dco_decode_flutter_filter_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
@@ -3124,6 +5785,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   FlutterGroupOrder dco_decode_flutter_group_order(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FlutterGroupOrder.values[raw as int];
+  }
+
+  @protected
+  FlutterHardwareAccel dco_decode_flutter_hardware_accel(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlutterHardwareAccel.values[raw as int];
   }
 
   @protected
@@ -3230,6 +5897,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterPublisherStatus dco_decode_flutter_publisher_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    return FlutterPublisherStatus(
+      publisherId: dco_decode_String(arr[0]),
+      isActive: dco_decode_bool(arr[1]),
+      framesPublished: dco_decode_u_64(arr[2]),
+      bytesSent: dco_decode_u_64(arr[3]),
+      currentBitrate: dco_decode_u_32(arr[4]),
+      videoRenditions: dco_decode_list_String(arr[5]),
+      audioRenditions: dco_decode_list_String(arr[6]),
+    );
+  }
+
+  @protected
   FlutterStreamEvent dco_decode_flutter_stream_event(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
@@ -3270,6 +5954,51 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterSubscriberStatus dco_decode_flutter_subscriber_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    return FlutterSubscriberStatus(
+      subscriberId: dco_decode_String(arr[0]),
+      broadcastId: dco_decode_String(arr[1]),
+      isConnected: dco_decode_bool(arr[2]),
+      framesReceived: dco_decode_u_64(arr[3]),
+      bytesReceived: dco_decode_u_64(arr[4]),
+      currentQuality: dco_decode_String(arr[5]),
+      bufferHealth: dco_decode_f_32(arr[6]),
+    );
+  }
+
+  @protected
+  FlutterTicketInfo dco_decode_flutter_ticket_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return FlutterTicketInfo(
+      broadcastName: dco_decode_String(arr[0]),
+      endpointId: dco_decode_String(arr[1]),
+      ticketString: dco_decode_String(arr[2]),
+    );
+  }
+
+  @protected
+  FlutterTrackInfo dco_decode_flutter_track_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterTrackInfo(
+      trackId: dco_decode_String(arr[0]),
+      name: dco_decode_String(arr[1]),
+      codec: dco_decode_String(arr[2]),
+      bitrate: dco_decode_u_32(arr[3]),
+      extra: dco_decode_Map_String_String_None(arr[4]),
+    );
+  }
+
+  @protected
   FlutterTrackStatus dco_decode_flutter_track_status(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -3292,9 +6021,54 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterVideoCodec dco_decode_flutter_video_codec(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlutterVideoCodec.values[raw as int];
+  }
+
+  @protected
+  FlutterVideoFrame dco_decode_flutter_video_frame(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FlutterVideoFrame(
+      width: dco_decode_u_32(arr[0]),
+      height: dco_decode_u_32(arr[1]),
+      data: dco_decode_list_prim_u_8_strict(arr[2]),
+      timestampMs: dco_decode_u_64(arr[3]),
+      format: dco_decode_String(arr[4]),
+    );
+  }
+
+  @protected
   FlutterVideoQuality dco_decode_flutter_video_quality(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FlutterVideoQuality.values[raw as int];
+  }
+
+  @protected
+  FlutterVideoQualityFfmpeg dco_decode_flutter_video_quality_ffmpeg(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlutterVideoQualityFfmpeg.values[raw as int];
+  }
+
+  @protected
+  FlutterVideoRendition dco_decode_flutter_video_rendition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return FlutterVideoRendition(
+      name: dco_decode_String(arr[0]),
+      width: dco_decode_u_32(arr[1]),
+      height: dco_decode_u_32(arr[2]),
+      fps: dco_decode_u_32(arr[3]),
+      bitrate: dco_decode_u_32(arr[4]),
+      codec: dco_decode_String(arr[5]),
+    );
   }
 
   @protected
@@ -3315,9 +6089,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int dco_decode_i_16(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
   int dco_decode_i_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64(raw);
   }
 
   @protected
@@ -3327,9 +6113,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<FlutterAudioRendition> dco_decode_list_flutter_audio_rendition(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_flutter_audio_rendition)
+        .toList();
+  }
+
+  @protected
+  List<FlutterCaptureDevice> dco_decode_list_flutter_capture_device(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_flutter_capture_device)
+        .toList();
+  }
+
+  @protected
   List<FlutterDirectEvent> dco_decode_list_flutter_direct_event(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_flutter_direct_event).toList();
+  }
+
+  @protected
+  List<FlutterEncodedVideoFrame> dco_decode_list_flutter_encoded_video_frame(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_flutter_encoded_video_frame)
+        .toList();
   }
 
   @protected
@@ -3360,6 +6176,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<FlutterTrackInfo> dco_decode_list_flutter_track_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_flutter_track_info).toList();
+  }
+
+  @protected
   List<FlutterVideoQuality> dco_decode_list_flutter_video_quality(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>)
@@ -3368,9 +6190,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<FlutterVideoRendition> dco_decode_list_flutter_video_rendition(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_flutter_video_rendition)
+        .toList();
+  }
+
+  @protected
   List<FlutterVideoTrack> dco_decode_list_flutter_video_track(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_flutter_video_track).toList();
+  }
+
+  @protected
+  List<int> dco_decode_list_prim_i_16_loose(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as List<int>;
+  }
+
+  @protected
+  Int16List dco_decode_list_prim_i_16_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Int16List;
   }
 
   @protected
@@ -3383,6 +6227,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
+  }
+
+  @protected
+  List<(String, bool)> dco_decode_list_record_string_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_record_string_bool).toList();
+  }
+
+  @protected
+  List<(String, String)> dco_decode_list_record_string_string(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_record_string_string).toList();
   }
 
   @protected
@@ -3410,6 +6266,40 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_box_autoadd_flutter_namespace_announcement(raw);
+  }
+
+  @protected
+  FlutterPublisherStatus? dco_decode_opt_box_autoadd_flutter_publisher_status(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_flutter_publisher_status(raw);
+  }
+
+  @protected
+  FlutterSubscriberStatus? dco_decode_opt_box_autoadd_flutter_subscriber_status(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_flutter_subscriber_status(raw);
+  }
+
+  @protected
+  FlutterTicketInfo? dco_decode_opt_box_autoadd_flutter_ticket_info(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_flutter_ticket_info(raw);
+  }
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
   }
 
   @protected
@@ -3442,6 +6332,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       framerate: dco_decode_u_32(arr[2]),
       audioBitrate: dco_decode_u_32(arr[3]),
     );
+  }
+
+  @protected
+  (String, bool) dco_decode_record_string_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (dco_decode_String(arr[0]), dco_decode_bool(arr[1]));
   }
 
   @protected
@@ -3479,6 +6379,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int dco_decode_u_16(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
   int dco_decode_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
@@ -3503,6 +6409,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  Map<String, String> sse_decode_Map_String_String_None(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_record_string_string(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
+  Map<String, bool> sse_decode_Map_String_bool_None(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_record_string_bool(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
@@ -3519,6 +6443,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   double sse_decode_box_autoadd_f_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_f_64(deserializer));
+  }
+
+  @protected
+  FlutterAudioSamples sse_decode_box_autoadd_flutter_audio_samples(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_audio_samples(deserializer));
+  }
+
+  @protected
+  FlutterBroadcastCatalog sse_decode_box_autoadd_flutter_broadcast_catalog(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_broadcast_catalog(deserializer));
   }
 
   @protected
@@ -3563,6 +6503,44 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterPublisherStatus sse_decode_box_autoadd_flutter_publisher_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_publisher_status(deserializer));
+  }
+
+  @protected
+  FlutterSubscriberStatus sse_decode_box_autoadd_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_subscriber_status(deserializer));
+  }
+
+  @protected
+  FlutterTicketInfo sse_decode_box_autoadd_flutter_ticket_info(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_ticket_info(deserializer));
+  }
+
+  @protected
+  FlutterVideoFrame sse_decode_box_autoadd_flutter_video_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_flutter_video_frame(deserializer));
+  }
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_32(deserializer));
+  }
+
+  @protected
   BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_u_64(deserializer));
@@ -3575,9 +6553,96 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double sse_decode_f_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat32();
+  }
+
+  @protected
   double sse_decode_f_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getFloat64();
+  }
+
+  @protected
+  FlutterAudioCodec sse_decode_flutter_audio_codec(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlutterAudioCodec.values[inner];
+  }
+
+  @protected
+  FlutterAudioRendition sse_decode_flutter_audio_rendition(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_name = sse_decode_String(deserializer);
+    var var_sampleRate = sse_decode_u_32(deserializer);
+    var var_channels = sse_decode_u_16(deserializer);
+    var var_bitrate = sse_decode_u_32(deserializer);
+    var var_codec = sse_decode_String(deserializer);
+    return FlutterAudioRendition(
+      name: var_name,
+      sampleRate: var_sampleRate,
+      channels: var_channels,
+      bitrate: var_bitrate,
+      codec: var_codec,
+    );
+  }
+
+  @protected
+  FlutterAudioSamples sse_decode_flutter_audio_samples(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_data = sse_decode_list_prim_u_8_strict(deserializer);
+    var var_sampleRate = sse_decode_u_32(deserializer);
+    var var_channels = sse_decode_u_16(deserializer);
+    var var_timestampMs = sse_decode_u_64(deserializer);
+    var var_format = sse_decode_String(deserializer);
+    return FlutterAudioSamples(
+      data: var_data,
+      sampleRate: var_sampleRate,
+      channels: var_channels,
+      timestampMs: var_timestampMs,
+      format: var_format,
+    );
+  }
+
+  @protected
+  FlutterBroadcastCatalog sse_decode_flutter_broadcast_catalog(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_broadcastId = sse_decode_String(deserializer);
+    var var_videoTracks = sse_decode_list_flutter_track_info(deserializer);
+    var var_audioTracks = sse_decode_list_flutter_track_info(deserializer);
+    var var_createdAtMs = sse_decode_u_64(deserializer);
+    return FlutterBroadcastCatalog(
+      broadcastId: var_broadcastId,
+      videoTracks: var_videoTracks,
+      audioTracks: var_audioTracks,
+      createdAtMs: var_createdAtMs,
+    );
+  }
+
+  @protected
+  FlutterCaptureDevice sse_decode_flutter_capture_device(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_name = sse_decode_String(deserializer);
+    var var_deviceType = sse_decode_String(deserializer);
+    var var_isDefault = sse_decode_bool(deserializer);
+    return FlutterCaptureDevice(
+      id: var_id,
+      name: var_name,
+      deviceType: var_deviceType,
+      isDefault: var_isDefault,
+    );
   }
 
   @protected
@@ -3619,6 +6684,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       rttMs: var_rttMs,
       qualityScore: var_qualityScore,
       recommendedQuality: var_recommendedQuality,
+    );
+  }
+
+  @protected
+  FlutterDecodedAudioFrame sse_decode_flutter_decoded_audio_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_samples = sse_decode_list_prim_i_16_strict(deserializer);
+    var var_ptsUs = sse_decode_i_64(deserializer);
+    var var_sampleRate = sse_decode_u_32(deserializer);
+    var var_channels = sse_decode_u_32(deserializer);
+    return FlutterDecodedAudioFrame(
+      samples: var_samples,
+      ptsUs: var_ptsUs,
+      sampleRate: var_sampleRate,
+      channels: var_channels,
+    );
+  }
+
+  @protected
+  FlutterDecodedVideoFrame sse_decode_flutter_decoded_video_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_data = sse_decode_list_prim_u_8_strict(deserializer);
+    var var_width = sse_decode_u_32(deserializer);
+    var var_height = sse_decode_u_32(deserializer);
+    var var_ptsUs = sse_decode_i_64(deserializer);
+    var var_isKeyframe = sse_decode_bool(deserializer);
+    return FlutterDecodedVideoFrame(
+      data: var_data,
+      width: var_width,
+      height: var_height,
+      ptsUs: var_ptsUs,
+      isKeyframe: var_isKeyframe,
     );
   }
 
@@ -3707,6 +6808,61 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterEncodedAudioFrame sse_decode_flutter_encoded_audio_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_data = sse_decode_list_prim_u_8_strict(deserializer);
+    var var_ptsUs = sse_decode_i_64(deserializer);
+    var var_durationUs = sse_decode_i_64(deserializer);
+    var var_samples = sse_decode_u_32(deserializer);
+    var var_codec = sse_decode_flutter_audio_codec(deserializer);
+    return FlutterEncodedAudioFrame(
+      data: var_data,
+      ptsUs: var_ptsUs,
+      durationUs: var_durationUs,
+      samples: var_samples,
+      codec: var_codec,
+    );
+  }
+
+  @protected
+  FlutterEncodedVideoFrame sse_decode_flutter_encoded_video_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_data = sse_decode_list_prim_u_8_strict(deserializer);
+    var var_ptsUs = sse_decode_i_64(deserializer);
+    var var_dtsUs = sse_decode_i_64(deserializer);
+    var var_isKeyframe = sse_decode_bool(deserializer);
+    var var_durationUs = sse_decode_i_64(deserializer);
+    var var_frameIndex = sse_decode_u_64(deserializer);
+    var var_codec = sse_decode_flutter_video_codec(deserializer);
+    var var_moqPriority = sse_decode_u_8(deserializer);
+    var var_moqTtlMs = sse_decode_u_64(deserializer);
+    return FlutterEncodedVideoFrame(
+      data: var_data,
+      ptsUs: var_ptsUs,
+      dtsUs: var_dtsUs,
+      isKeyframe: var_isKeyframe,
+      durationUs: var_durationUs,
+      frameIndex: var_frameIndex,
+      codec: var_codec,
+      moqPriority: var_moqPriority,
+      moqTtlMs: var_moqTtlMs,
+    );
+  }
+
+  @protected
+  FlutterEncoderPreset sse_decode_flutter_encoder_preset(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlutterEncoderPreset.values[inner];
+  }
+
+  @protected
   FlutterFilterType sse_decode_flutter_filter_type(
     SseDeserializer deserializer,
   ) {
@@ -3750,6 +6906,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return FlutterGroupOrder.values[inner];
+  }
+
+  @protected
+  FlutterHardwareAccel sse_decode_flutter_hardware_accel(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlutterHardwareAccel.values[inner];
   }
 
   @protected
@@ -3875,6 +7040,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterPublisherStatus sse_decode_flutter_publisher_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_publisherId = sse_decode_String(deserializer);
+    var var_isActive = sse_decode_bool(deserializer);
+    var var_framesPublished = sse_decode_u_64(deserializer);
+    var var_bytesSent = sse_decode_u_64(deserializer);
+    var var_currentBitrate = sse_decode_u_32(deserializer);
+    var var_videoRenditions = sse_decode_list_String(deserializer);
+    var var_audioRenditions = sse_decode_list_String(deserializer);
+    return FlutterPublisherStatus(
+      publisherId: var_publisherId,
+      isActive: var_isActive,
+      framesPublished: var_framesPublished,
+      bytesSent: var_bytesSent,
+      currentBitrate: var_currentBitrate,
+      videoRenditions: var_videoRenditions,
+      audioRenditions: var_audioRenditions,
+    );
+  }
+
+  @protected
   FlutterStreamEvent sse_decode_flutter_stream_event(
     SseDeserializer deserializer,
   ) {
@@ -3928,6 +7116,61 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterSubscriberStatus sse_decode_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_subscriberId = sse_decode_String(deserializer);
+    var var_broadcastId = sse_decode_String(deserializer);
+    var var_isConnected = sse_decode_bool(deserializer);
+    var var_framesReceived = sse_decode_u_64(deserializer);
+    var var_bytesReceived = sse_decode_u_64(deserializer);
+    var var_currentQuality = sse_decode_String(deserializer);
+    var var_bufferHealth = sse_decode_f_32(deserializer);
+    return FlutterSubscriberStatus(
+      subscriberId: var_subscriberId,
+      broadcastId: var_broadcastId,
+      isConnected: var_isConnected,
+      framesReceived: var_framesReceived,
+      bytesReceived: var_bytesReceived,
+      currentQuality: var_currentQuality,
+      bufferHealth: var_bufferHealth,
+    );
+  }
+
+  @protected
+  FlutterTicketInfo sse_decode_flutter_ticket_info(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_broadcastName = sse_decode_String(deserializer);
+    var var_endpointId = sse_decode_String(deserializer);
+    var var_ticketString = sse_decode_String(deserializer);
+    return FlutterTicketInfo(
+      broadcastName: var_broadcastName,
+      endpointId: var_endpointId,
+      ticketString: var_ticketString,
+    );
+  }
+
+  @protected
+  FlutterTrackInfo sse_decode_flutter_track_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_trackId = sse_decode_String(deserializer);
+    var var_name = sse_decode_String(deserializer);
+    var var_codec = sse_decode_String(deserializer);
+    var var_bitrate = sse_decode_u_32(deserializer);
+    var var_extra = sse_decode_Map_String_String_None(deserializer);
+    return FlutterTrackInfo(
+      trackId: var_trackId,
+      name: var_name,
+      codec: var_codec,
+      bitrate: var_bitrate,
+      extra: var_extra,
+    );
+  }
+
+  @protected
   FlutterTrackStatus sse_decode_flutter_track_status(
     SseDeserializer deserializer,
   ) {
@@ -3958,12 +7201,70 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterVideoCodec sse_decode_flutter_video_codec(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlutterVideoCodec.values[inner];
+  }
+
+  @protected
+  FlutterVideoFrame sse_decode_flutter_video_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_width = sse_decode_u_32(deserializer);
+    var var_height = sse_decode_u_32(deserializer);
+    var var_data = sse_decode_list_prim_u_8_strict(deserializer);
+    var var_timestampMs = sse_decode_u_64(deserializer);
+    var var_format = sse_decode_String(deserializer);
+    return FlutterVideoFrame(
+      width: var_width,
+      height: var_height,
+      data: var_data,
+      timestampMs: var_timestampMs,
+      format: var_format,
+    );
+  }
+
+  @protected
   FlutterVideoQuality sse_decode_flutter_video_quality(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return FlutterVideoQuality.values[inner];
+  }
+
+  @protected
+  FlutterVideoQualityFfmpeg sse_decode_flutter_video_quality_ffmpeg(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlutterVideoQualityFfmpeg.values[inner];
+  }
+
+  @protected
+  FlutterVideoRendition sse_decode_flutter_video_rendition(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_name = sse_decode_String(deserializer);
+    var var_width = sse_decode_u_32(deserializer);
+    var var_height = sse_decode_u_32(deserializer);
+    var var_fps = sse_decode_u_32(deserializer);
+    var var_bitrate = sse_decode_u_32(deserializer);
+    var var_codec = sse_decode_String(deserializer);
+    return FlutterVideoRendition(
+      name: var_name,
+      width: var_width,
+      height: var_height,
+      fps: var_fps,
+      bitrate: var_bitrate,
+      codec: var_codec,
+    );
   }
 
   @protected
@@ -3990,9 +7291,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int sse_decode_i_16(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt16();
+  }
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getPlatformInt64();
   }
 
   @protected
@@ -4008,6 +7321,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<FlutterAudioRendition> sse_decode_list_flutter_audio_rendition(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlutterAudioRendition>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_flutter_audio_rendition(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FlutterCaptureDevice> sse_decode_list_flutter_capture_device(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlutterCaptureDevice>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_flutter_capture_device(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<FlutterDirectEvent> sse_decode_list_flutter_direct_event(
     SseDeserializer deserializer,
   ) {
@@ -4017,6 +7358,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <FlutterDirectEvent>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_flutter_direct_event(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FlutterEncodedVideoFrame> sse_decode_list_flutter_encoded_video_frame(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlutterEncodedVideoFrame>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_flutter_encoded_video_frame(deserializer));
     }
     return ans_;
   }
@@ -4077,6 +7432,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<FlutterTrackInfo> sse_decode_list_flutter_track_info(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlutterTrackInfo>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_flutter_track_info(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<FlutterVideoQuality> sse_decode_list_flutter_video_quality(
     SseDeserializer deserializer,
   ) {
@@ -4086,6 +7455,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <FlutterVideoQuality>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_flutter_video_quality(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<FlutterVideoRendition> sse_decode_list_flutter_video_rendition(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlutterVideoRendition>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_flutter_video_rendition(deserializer));
     }
     return ans_;
   }
@@ -4105,6 +7488,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<int> sse_decode_list_prim_i_16_loose(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getInt16List(len_);
+  }
+
+  @protected
+  Int16List sse_decode_list_prim_i_16_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getInt16List(len_);
+  }
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
@@ -4116,6 +7513,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
     return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  List<(String, bool)> sse_decode_list_record_string_bool(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(String, bool)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_string_bool(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<(String, String)> sse_decode_list_record_string_string(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(String, String)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_string_string(deserializer));
+    }
+    return ans_;
   }
 
   @protected
@@ -4170,6 +7595,56 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlutterPublisherStatus? sse_decode_opt_box_autoadd_flutter_publisher_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_flutter_publisher_status(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  FlutterSubscriberStatus? sse_decode_opt_box_autoadd_flutter_subscriber_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_flutter_subscriber_status(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  FlutterTicketInfo? sse_decode_opt_box_autoadd_flutter_ticket_info(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_flutter_ticket_info(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4216,6 +7691,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  (String, bool) sse_decode_record_string_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_String(deserializer);
+    var var_field1 = sse_decode_bool(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
   (String, String) sse_decode_record_string_string(
     SseDeserializer deserializer,
   ) {
@@ -4243,6 +7726,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int sse_decode_u_16(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint16();
+  }
+
+  @protected
   int sse_decode_u_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getUint32();
@@ -4266,6 +7755,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_Map_String_String_None(
+    Map<String, String> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_string_string(
+      self.entries.map((e) => (e.key, e.value)).toList(),
+      serializer,
+    );
+  }
+
+  @protected
+  void sse_encode_Map_String_bool_None(
+    Map<String, bool> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_string_bool(
+      self.entries.map((e) => (e.key, e.value)).toList(),
+      serializer,
+    );
+  }
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
@@ -4281,6 +7794,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_f_64(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_flutter_audio_samples(
+    FlutterAudioSamples self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_audio_samples(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_flutter_broadcast_catalog(
+    FlutterBroadcastCatalog self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_broadcast_catalog(self, serializer);
   }
 
   @protected
@@ -4329,6 +7860,48 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_flutter_publisher_status(
+    FlutterPublisherStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_publisher_status(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_flutter_subscriber_status(
+    FlutterSubscriberStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_subscriber_status(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_flutter_ticket_info(
+    FlutterTicketInfo self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_ticket_info(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_flutter_video_frame(
+    FlutterVideoFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_flutter_video_frame(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_u_64(self, serializer);
@@ -4341,9 +7914,74 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_f_32(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat32(self);
+  }
+
+  @protected
   void sse_encode_f_64(double self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putFloat64(self);
+  }
+
+  @protected
+  void sse_encode_flutter_audio_codec(
+    FlutterAudioCodec self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_audio_rendition(
+    FlutterAudioRendition self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.name, serializer);
+    sse_encode_u_32(self.sampleRate, serializer);
+    sse_encode_u_16(self.channels, serializer);
+    sse_encode_u_32(self.bitrate, serializer);
+    sse_encode_String(self.codec, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_audio_samples(
+    FlutterAudioSamples self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.data, serializer);
+    sse_encode_u_32(self.sampleRate, serializer);
+    sse_encode_u_16(self.channels, serializer);
+    sse_encode_u_64(self.timestampMs, serializer);
+    sse_encode_String(self.format, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_broadcast_catalog(
+    FlutterBroadcastCatalog self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.broadcastId, serializer);
+    sse_encode_list_flutter_track_info(self.videoTracks, serializer);
+    sse_encode_list_flutter_track_info(self.audioTracks, serializer);
+    sse_encode_u_64(self.createdAtMs, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_capture_device(
+    FlutterCaptureDevice self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_String(self.name, serializer);
+    sse_encode_String(self.deviceType, serializer);
+    sse_encode_bool(self.isDefault, serializer);
   }
 
   @protected
@@ -4373,6 +8011,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_u_64(self.rttMs, serializer);
     sse_encode_u_32(self.qualityScore, serializer);
     sse_encode_flutter_video_quality(self.recommendedQuality, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_decoded_audio_frame(
+    FlutterDecodedAudioFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_i_16_strict(self.samples, serializer);
+    sse_encode_i_64(self.ptsUs, serializer);
+    sse_encode_u_32(self.sampleRate, serializer);
+    sse_encode_u_32(self.channels, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_decoded_video_frame(
+    FlutterDecodedVideoFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.data, serializer);
+    sse_encode_u_32(self.width, serializer);
+    sse_encode_u_32(self.height, serializer);
+    sse_encode_i_64(self.ptsUs, serializer);
+    sse_encode_bool(self.isKeyframe, serializer);
   }
 
   @protected
@@ -4457,6 +8120,45 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_flutter_encoded_audio_frame(
+    FlutterEncodedAudioFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.data, serializer);
+    sse_encode_i_64(self.ptsUs, serializer);
+    sse_encode_i_64(self.durationUs, serializer);
+    sse_encode_u_32(self.samples, serializer);
+    sse_encode_flutter_audio_codec(self.codec, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_encoded_video_frame(
+    FlutterEncodedVideoFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(self.data, serializer);
+    sse_encode_i_64(self.ptsUs, serializer);
+    sse_encode_i_64(self.dtsUs, serializer);
+    sse_encode_bool(self.isKeyframe, serializer);
+    sse_encode_i_64(self.durationUs, serializer);
+    sse_encode_u_64(self.frameIndex, serializer);
+    sse_encode_flutter_video_codec(self.codec, serializer);
+    sse_encode_u_8(self.moqPriority, serializer);
+    sse_encode_u_64(self.moqTtlMs, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_encoder_preset(
+    FlutterEncoderPreset self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
   void sse_encode_flutter_filter_type(
     FlutterFilterType self,
     SseSerializer serializer,
@@ -4493,6 +8195,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_encode_flutter_group_order(
     FlutterGroupOrder self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_hardware_accel(
+    FlutterHardwareAccel self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -4606,6 +8317,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_flutter_publisher_status(
+    FlutterPublisherStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.publisherId, serializer);
+    sse_encode_bool(self.isActive, serializer);
+    sse_encode_u_64(self.framesPublished, serializer);
+    sse_encode_u_64(self.bytesSent, serializer);
+    sse_encode_u_32(self.currentBitrate, serializer);
+    sse_encode_list_String(self.videoRenditions, serializer);
+    sse_encode_list_String(self.audioRenditions, serializer);
+  }
+
+  @protected
   void sse_encode_flutter_stream_event(
     FlutterStreamEvent self,
     SseSerializer serializer,
@@ -4656,6 +8382,45 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_flutter_subscriber_status(
+    FlutterSubscriberStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.subscriberId, serializer);
+    sse_encode_String(self.broadcastId, serializer);
+    sse_encode_bool(self.isConnected, serializer);
+    sse_encode_u_64(self.framesReceived, serializer);
+    sse_encode_u_64(self.bytesReceived, serializer);
+    sse_encode_String(self.currentQuality, serializer);
+    sse_encode_f_32(self.bufferHealth, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_ticket_info(
+    FlutterTicketInfo self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.broadcastName, serializer);
+    sse_encode_String(self.endpointId, serializer);
+    sse_encode_String(self.ticketString, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_track_info(
+    FlutterTrackInfo self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.trackId, serializer);
+    sse_encode_String(self.name, serializer);
+    sse_encode_String(self.codec, serializer);
+    sse_encode_u_32(self.bitrate, serializer);
+    sse_encode_Map_String_String_None(self.extra, serializer);
+  }
+
+  @protected
   void sse_encode_flutter_track_status(
     FlutterTrackStatus self,
     SseSerializer serializer,
@@ -4679,12 +8444,57 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_flutter_video_codec(
+    FlutterVideoCodec self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_video_frame(
+    FlutterVideoFrame self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.width, serializer);
+    sse_encode_u_32(self.height, serializer);
+    sse_encode_list_prim_u_8_strict(self.data, serializer);
+    sse_encode_u_64(self.timestampMs, serializer);
+    sse_encode_String(self.format, serializer);
+  }
+
+  @protected
   void sse_encode_flutter_video_quality(
     FlutterVideoQuality self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_video_quality_ffmpeg(
+    FlutterVideoQualityFfmpeg self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_flutter_video_rendition(
+    FlutterVideoRendition self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.name, serializer);
+    sse_encode_u_32(self.width, serializer);
+    sse_encode_u_32(self.height, serializer);
+    sse_encode_u_32(self.fps, serializer);
+    sse_encode_u_32(self.bitrate, serializer);
+    sse_encode_String(self.codec, serializer);
   }
 
   @protected
@@ -4703,9 +8513,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_i_16(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt16(self);
+  }
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putPlatformInt64(self);
   }
 
   @protected
@@ -4718,6 +8540,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_flutter_audio_rendition(
+    List<FlutterAudioRendition> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_flutter_audio_rendition(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_flutter_capture_device(
+    List<FlutterCaptureDevice> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_flutter_capture_device(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_flutter_direct_event(
     List<FlutterDirectEvent> self,
     SseSerializer serializer,
@@ -4726,6 +8572,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_flutter_direct_event(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_flutter_encoded_video_frame(
+    List<FlutterEncodedVideoFrame> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_flutter_encoded_video_frame(item, serializer);
     }
   }
 
@@ -4778,6 +8636,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_flutter_track_info(
+    List<FlutterTrackInfo> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_flutter_track_info(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_flutter_video_quality(
     List<FlutterVideoQuality> self,
     SseSerializer serializer,
@@ -4786,6 +8656,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_flutter_video_quality(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_flutter_video_rendition(
+    List<FlutterVideoRendition> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_flutter_video_rendition(item, serializer);
     }
   }
 
@@ -4799,6 +8681,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     for (final item in self) {
       sse_encode_flutter_video_track(item, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_list_prim_i_16_loose(
+    List<int> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putInt16List(
+      self is Int16List ? self : Int16List.fromList(self),
+    );
+  }
+
+  @protected
+  void sse_encode_list_prim_i_16_strict(
+    Int16List self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putInt16List(self);
   }
 
   @protected
@@ -4821,6 +8725,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_list_record_string_bool(
+    List<(String, bool)> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_string_bool(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_record_string_string(
+    List<(String, String)> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_string_string(item, serializer);
+    }
   }
 
   @protected
@@ -4870,6 +8798,55 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_flutter_publisher_status(
+    FlutterPublisherStatus? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_flutter_publisher_status(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_flutter_subscriber_status(
+    FlutterSubscriberStatus? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_flutter_subscriber_status(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_flutter_ticket_info(
+    FlutterTicketInfo? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_flutter_ticket_info(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4908,6 +8885,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_record_string_bool(
+    (String, bool) self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.$1, serializer);
+    sse_encode_bool(self.$2, serializer);
+  }
+
+  @protected
   void sse_encode_record_string_string(
     (String, String) self,
     SseSerializer serializer,
@@ -4933,6 +8920,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_u_8(self.$1, serializer);
     sse_encode_u_8(self.$2, serializer);
     sse_encode_u_8(self.$3, serializer);
+  }
+
+  @protected
+  void sse_encode_u_16(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint16(self);
   }
 
   @protected
