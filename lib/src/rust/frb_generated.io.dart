@@ -56,6 +56,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterEncodedAudioPacket dco_decode_box_autoadd_flutter_encoded_audio_packet(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterEncodedVideoPacket dco_decode_box_autoadd_flutter_encoded_video_packet(
+    dynamic raw,
+  );
+
+  @protected
   FlutterFilterType dco_decode_box_autoadd_flutter_filter_type(dynamic raw);
 
   @protected
@@ -67,6 +77,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   FlutterPublisherStatus dco_decode_box_autoadd_flutter_publisher_status(
+    dynamic raw,
+  );
+
+  @protected
+  FlutterReceivedVideoFrame dco_decode_box_autoadd_flutter_received_video_frame(
     dynamic raw,
   );
 
@@ -130,7 +145,17 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   FlutterEncodedAudioFrame dco_decode_flutter_encoded_audio_frame(dynamic raw);
 
   @protected
+  FlutterEncodedAudioPacket dco_decode_flutter_encoded_audio_packet(
+    dynamic raw,
+  );
+
+  @protected
   FlutterEncodedVideoFrame dco_decode_flutter_encoded_video_frame(dynamic raw);
+
+  @protected
+  FlutterEncodedVideoPacket dco_decode_flutter_encoded_video_packet(
+    dynamic raw,
+  );
 
   @protected
   FlutterEncoderPreset dco_decode_flutter_encoder_preset(dynamic raw);
@@ -163,6 +188,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   FlutterPublisherStatus dco_decode_flutter_publisher_status(dynamic raw);
+
+  @protected
+  FlutterReceivedVideoFrame dco_decode_flutter_received_video_frame(
+    dynamic raw,
+  );
 
   @protected
   FlutterStreamEvent dco_decode_flutter_stream_event(dynamic raw);
@@ -296,6 +326,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterReceivedVideoFrame?
+  dco_decode_opt_box_autoadd_flutter_received_video_frame(dynamic raw);
+
+  @protected
   FlutterSubscriberStatus? dco_decode_opt_box_autoadd_flutter_subscriber_status(
     dynamic raw,
   );
@@ -387,6 +421,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterEncodedAudioPacket sse_decode_box_autoadd_flutter_encoded_audio_packet(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterEncodedVideoPacket sse_decode_box_autoadd_flutter_encoded_video_packet(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterFilterType sse_decode_box_autoadd_flutter_filter_type(
     SseDeserializer deserializer,
   );
@@ -404,6 +448,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   FlutterPublisherStatus sse_decode_box_autoadd_flutter_publisher_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterReceivedVideoFrame sse_decode_box_autoadd_flutter_received_video_frame(
     SseDeserializer deserializer,
   );
 
@@ -491,7 +540,17 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterEncodedAudioPacket sse_decode_flutter_encoded_audio_packet(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterEncodedVideoFrame sse_decode_flutter_encoded_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterEncodedVideoPacket sse_decode_flutter_encoded_video_packet(
     SseDeserializer deserializer,
   );
 
@@ -536,6 +595,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   FlutterPublisherStatus sse_decode_flutter_publisher_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  FlutterReceivedVideoFrame sse_decode_flutter_received_video_frame(
     SseDeserializer deserializer,
   );
 
@@ -713,6 +777,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  FlutterReceivedVideoFrame?
+  sse_decode_opt_box_autoadd_flutter_received_video_frame(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FlutterSubscriberStatus? sse_decode_opt_box_autoadd_flutter_subscriber_status(
     SseDeserializer deserializer,
   );
@@ -814,6 +884,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_flutter_encoded_audio_packet(
+    FlutterEncodedAudioPacket self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_encoded_video_packet(
+    FlutterEncodedVideoPacket self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_flutter_filter_type(
     FlutterFilterType self,
     SseSerializer serializer,
@@ -834,6 +916,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_box_autoadd_flutter_publisher_status(
     FlutterPublisherStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_flutter_received_video_frame(
+    FlutterReceivedVideoFrame self,
     SseSerializer serializer,
   );
 
@@ -937,8 +1025,20 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_flutter_encoded_audio_packet(
+    FlutterEncodedAudioPacket self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_flutter_encoded_video_frame(
     FlutterEncodedVideoFrame self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_encoded_video_packet(
+    FlutterEncodedVideoPacket self,
     SseSerializer serializer,
   );
 
@@ -999,6 +1099,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_flutter_publisher_status(
     FlutterPublisherStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_flutter_received_video_frame(
+    FlutterReceivedVideoFrame self,
     SseSerializer serializer,
   );
 
@@ -1212,6 +1318,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_opt_box_autoadd_flutter_publisher_status(
     FlutterPublisherStatus? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_flutter_received_video_frame(
+    FlutterReceivedVideoFrame? self,
     SseSerializer serializer,
   );
 

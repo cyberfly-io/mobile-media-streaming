@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -85,8 +86,18 @@ class _IrohStreamingScreenState extends State<IrohStreamingScreen>
         throw Exception('Failed to initialize capture system');
       }
       
-      // Get available cameras
-      _cameras = await availableCameras();
+      // Get available cameras (not supported on macOS/Linux/Windows desktop)
+      if (Platform.isAndroid || Platform.isIOS) {
+        try {
+          _cameras = await availableCameras();
+        } catch (e) {
+          debugPrint('Camera not available: $e');
+          _cameras = [];
+        }
+      } else {
+        debugPrint('Camera plugin not supported on ${Platform.operatingSystem}');
+        _cameras = [];
+      }
       
       // Load devices
       _captureDevices = irohCaptureListDevices();

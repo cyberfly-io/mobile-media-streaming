@@ -5,6 +5,7 @@ import 'package:cyberfly_streaming/src/rust/api/simple.dart';
 import 'package:cyberfly_streaming/src/rust/frb_generated.dart';
 import 'package:cyberfly_streaming/src/rust/api/iroh_live_flutter_api.dart';
 import 'screens/iroh_streaming_screen.dart';
+import 'screens/live_stream_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -139,6 +140,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   sliver: SliverToBoxAdapter(
                     child: _buildMainFeatureCard(context),
+                  ),
+                ),
+                
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                
+                // Live Stream card (NEW iroh-live integration)
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  sliver: SliverToBoxAdapter(
+                    child: _buildLiveStreamCard(context),
                   ),
                 ),
                 
@@ -604,6 +615,160 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         style: const TextStyle(
           color: Colors.white,
           fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildLiveStreamCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.mediumImpact();
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => 
+              const LiveStreamingScreen(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOutCubic,
+                )),
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 400),
+          ),
+        );
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFF22C55E).withValues(alpha: 0.3),
+                  const Color(0xFF10B981).withValues(alpha: 0.2),
+                ],
+              ),
+              border: Border.all(
+                color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+              ),
+            ),
+            child: Stack(
+              children: [
+                // Background pattern
+                Positioned(
+                  right: -20,
+                  top: -20,
+                  child: Icon(
+                    Icons.sensors,
+                    size: 120,
+                    color: const Color(0xFF22C55E).withValues(alpha: 0.1),
+                  ),
+                ),
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.fiber_new, size: 14, color: Color(0xFF22C55E)),
+                                SizedBox(width: 4),
+                                Text(
+                                  'NEW',
+                                  style: TextStyle(
+                                    color: Color(0xFF22C55E),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.white.withValues(alpha: 0.5),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Live Stream',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'iroh-live P2P with FFmpegKit encoding. Real camera capture with H264 encoding.',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white.withValues(alpha: 0.7),
+                          height: 1.4,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Feature pills
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _buildLivePill('📷 Camera'),
+                          _buildLivePill('🎬 FFmpeg'),
+                          _buildLivePill('🌐 P2P'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildLivePill(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: const Color(0xFF22C55E).withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white.withValues(alpha: 0.9),
+          fontSize: 11,
           fontWeight: FontWeight.w500,
         ),
       ),

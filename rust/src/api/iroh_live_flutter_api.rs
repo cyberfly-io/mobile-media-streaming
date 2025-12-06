@@ -9,13 +9,13 @@ use flutter_rust_bridge::frb;
 use once_cell::sync::Lazy;
 use tokio::sync::Mutex as TokioMutex;
 
-use super::iroh_live::{LiveNode, LiveTicket, VideoFrame as IrohVideoFrame};
+use super::iroh_live::{LiveNode, LiveTicket, VideoFrame as IrohVideoFrame, EncodedVideoPacket, EncodedAudioPacket};
 
 // ============================================================================
 // Types for Flutter (all use primitives or simple structs)
 // ============================================================================
 
-/// Video frame data for Flutter
+/// Video frame data for Flutter (raw, unencoded)
 #[frb(non_opaque)]
 #[derive(Debug, Clone)]
 pub struct FlutterVideoFrame {
@@ -26,7 +26,31 @@ pub struct FlutterVideoFrame {
     pub format: String, // "rgba", "nv12", "i420"
 }
 
-/// Audio samples for Flutter
+/// Encoded video packet for Flutter (H264/H265)
+/// Use this when encoding is done on the Flutter side (e.g., FFmpegKit)
+#[frb(non_opaque)]
+#[derive(Debug, Clone)]
+pub struct FlutterEncodedVideoPacket {
+    pub data: Vec<u8>,
+    pub timestamp_ms: u64,
+    pub is_keyframe: bool,
+    pub codec: String, // "h264", "h265"
+    pub width: u32,
+    pub height: u32,
+}
+
+/// Encoded audio packet for Flutter (Opus/AAC)
+#[frb(non_opaque)]
+#[derive(Debug, Clone)]
+pub struct FlutterEncodedAudioPacket {
+    pub data: Vec<u8>,
+    pub timestamp_ms: u64,
+    pub codec: String, // "opus", "aac"
+    pub sample_rate: u32,
+    pub channels: u16,
+}
+
+/// Audio samples for Flutter (raw PCM)
 #[frb(non_opaque)]
 #[derive(Debug, Clone)]
 pub struct FlutterAudioSamples {
@@ -472,6 +496,11 @@ pub async fn iroh_publish_start_async(publisher_id: String) -> Result<(), String
     let node_guard = LIVE_NODE.lock().await;
     let node = node_guard.as_ref().ok_or("Node not initialized")?;
     
+    // Start accepting incoming subscriber connections
+    node.start_accepting()
+        .await
+        .map_err(|e| format!("Failed to start accepting connections: {}", e))?;
+    
     node.start_publishing(&publisher_id)
         .await
         .map_err(|e| format!("Failed to start publishing: {}", e))?;
@@ -560,6 +589,49 @@ pub fn iroh_publish_push_audio(publisher_id: String, samples: FlutterAudioSample
     if let Some(state) = publishers.get_mut(&publisher_id) {
         if state.is_active {
             state.bytes_sent += samples.data.len() as u64;
+            true
+        } else {
+            false
+        }
+    } else {
+        false
+    }
+}
+
+/// Push an already-encoded video packet to publisher
+/// 
+/// Use this when encoding is done on the Flutter side (e.g., using FFmpegKit).
+/// This is the preferred method for mobile platforms where Rust FFmpeg
+/// cross-compilation is difficult.
+#[frb(sync)]
+pub fn iroh_publish_push_encoded_video(publisher_id: String, packet: FlutterEncodedVideoPacket) -> bool {
+    let mut publishers = PUBLISHERS.write().unwrap();
+    
+    if let Some(state) = publishers.get_mut(&publisher_id) {
+        if state.is_active {
+            state.frames_published += 1;
+            state.bytes_sent += packet.data.len() as u64;
+            
+            // TODO: Send to LiveNode for actual network transmission
+            // For now, just count the bytes
+            
+            true
+        } else {
+            false
+        }
+    } else {
+        false
+    }
+}
+
+/// Push an already-encoded audio packet to publisher
+#[frb(sync)]
+pub fn iroh_publish_push_encoded_audio(publisher_id: String, packet: FlutterEncodedAudioPacket) -> bool {
+    let mut publishers = PUBLISHERS.write().unwrap();
+    
+    if let Some(state) = publishers.get_mut(&publisher_id) {
+        if state.is_active {
+            state.bytes_sent += packet.data.len() as u64;
             true
         } else {
             false
@@ -831,6 +903,42 @@ pub fn iroh_subscribe_simulate_video_receive(subscriber_id: String, frame_size: 
     } else {
         false
     }
+}
+
+/// Received video frame from network
+#[frb]
+pub struct FlutterReceivedVideoFrame {
+    pub timestamp_ms: u64,
+    pub width: i32,
+    pub height: i32,
+    pub is_keyframe: bool,
+    pub data: Vec<u8>,
+}
+
+/// Receive a video frame from a subscriber (non-blocking)
+/// Returns None if no frame is available
+pub async fn iroh_subscribe_receive_frame(subscriber_id: String) -> Option<FlutterReceivedVideoFrame> {
+    let node_guard = LIVE_NODE.lock().await;
+    let node = node_guard.as_ref()?;
+    
+    let packet = node.receive_video_frame(&subscriber_id).await?;
+    
+    // Update local stats
+    {
+        let mut subscribers = SUBSCRIBERS.write().unwrap();
+        if let Some(state) = subscribers.get_mut(&subscriber_id) {
+            state.frames_received += 1;
+            state.bytes_received += packet.data.len() as u64;
+        }
+    }
+    
+    Some(FlutterReceivedVideoFrame {
+        timestamp_ms: packet.timestamp_ms,
+        width: packet.width as i32,
+        height: packet.height as i32,
+        is_keyframe: packet.is_keyframe,
+        data: packet.data,
+    })
 }
 
 // ============================================================================

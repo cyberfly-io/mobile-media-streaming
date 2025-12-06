@@ -8,7 +8,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `generate_color_bars`, `generate_gradient`, `generate_moving_box`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `CaptureState`, `PublishState`, `SubscribeState`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`
 
 /// Initialize the iroh-live node
 Future<String> irohNodeInit() =>
@@ -109,6 +109,30 @@ bool irohPublishPushAudio({
   samples: samples,
 );
 
+/// Push an already-encoded video packet to publisher
+///
+/// Use this when encoding is done on the Flutter side (e.g., using FFmpegKit).
+/// This is the preferred method for mobile platforms where Rust FFmpeg
+/// cross-compilation is difficult.
+bool irohPublishPushEncodedVideo({
+  required String publisherId,
+  required FlutterEncodedVideoPacket packet,
+}) =>
+    RustLib.instance.api.crateApiIrohLiveFlutterApiIrohPublishPushEncodedVideo(
+      publisherId: publisherId,
+      packet: packet,
+    );
+
+/// Push an already-encoded audio packet to publisher
+bool irohPublishPushEncodedAudio({
+  required String publisherId,
+  required FlutterEncodedAudioPacket packet,
+}) =>
+    RustLib.instance.api.crateApiIrohLiveFlutterApiIrohPublishPushEncodedAudio(
+      publisherId: publisherId,
+      packet: packet,
+    );
+
 /// Get publisher status
 FlutterPublisherStatus? irohPublishGetStatus({required String publisherId}) =>
     RustLib.instance.api.crateApiIrohLiveFlutterApiIrohPublishGetStatus(
@@ -208,6 +232,14 @@ bool irohSubscribeSimulateVideoReceive({
       frameSize: frameSize,
     );
 
+/// Receive a video frame from a subscriber (non-blocking)
+/// Returns None if no frame is available
+Future<FlutterReceivedVideoFrame?> irohSubscribeReceiveFrame({
+  required String subscriberId,
+}) => RustLib.instance.api.crateApiIrohLiveFlutterApiIrohSubscribeReceiveFrame(
+  subscriberId: subscriberId,
+);
+
 /// Create a broadcast catalog
 FlutterBroadcastCatalog irohCatalogCreate({
   required String broadcastId,
@@ -293,7 +325,7 @@ class FlutterAudioRendition {
           codec == other.codec;
 }
 
-/// Audio samples for Flutter
+/// Audio samples for Flutter (raw PCM)
 class FlutterAudioSamples {
   final Uint8List data;
   final int sampleRate;
@@ -390,6 +422,83 @@ class FlutterCaptureDevice {
           isDefault == other.isDefault;
 }
 
+/// Encoded audio packet for Flutter (Opus/AAC)
+class FlutterEncodedAudioPacket {
+  final Uint8List data;
+  final BigInt timestampMs;
+  final String codec;
+  final int sampleRate;
+  final int channels;
+
+  const FlutterEncodedAudioPacket({
+    required this.data,
+    required this.timestampMs,
+    required this.codec,
+    required this.sampleRate,
+    required this.channels,
+  });
+
+  @override
+  int get hashCode =>
+      data.hashCode ^
+      timestampMs.hashCode ^
+      codec.hashCode ^
+      sampleRate.hashCode ^
+      channels.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FlutterEncodedAudioPacket &&
+          runtimeType == other.runtimeType &&
+          data == other.data &&
+          timestampMs == other.timestampMs &&
+          codec == other.codec &&
+          sampleRate == other.sampleRate &&
+          channels == other.channels;
+}
+
+/// Encoded video packet for Flutter (H264/H265)
+/// Use this when encoding is done on the Flutter side (e.g., FFmpegKit)
+class FlutterEncodedVideoPacket {
+  final Uint8List data;
+  final BigInt timestampMs;
+  final bool isKeyframe;
+  final String codec;
+  final int width;
+  final int height;
+
+  const FlutterEncodedVideoPacket({
+    required this.data,
+    required this.timestampMs,
+    required this.isKeyframe,
+    required this.codec,
+    required this.width,
+    required this.height,
+  });
+
+  @override
+  int get hashCode =>
+      data.hashCode ^
+      timestampMs.hashCode ^
+      isKeyframe.hashCode ^
+      codec.hashCode ^
+      width.hashCode ^
+      height.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FlutterEncodedVideoPacket &&
+          runtimeType == other.runtimeType &&
+          data == other.data &&
+          timestampMs == other.timestampMs &&
+          isKeyframe == other.isKeyframe &&
+          codec == other.codec &&
+          width == other.width &&
+          height == other.height;
+}
+
 /// Publisher status
 class FlutterPublisherStatus {
   final String publisherId;
@@ -432,6 +541,42 @@ class FlutterPublisherStatus {
           currentBitrate == other.currentBitrate &&
           videoRenditions == other.videoRenditions &&
           audioRenditions == other.audioRenditions;
+}
+
+/// Received video frame from network
+class FlutterReceivedVideoFrame {
+  final BigInt timestampMs;
+  final int width;
+  final int height;
+  final bool isKeyframe;
+  final Uint8List data;
+
+  const FlutterReceivedVideoFrame({
+    required this.timestampMs,
+    required this.width,
+    required this.height,
+    required this.isKeyframe,
+    required this.data,
+  });
+
+  @override
+  int get hashCode =>
+      timestampMs.hashCode ^
+      width.hashCode ^
+      height.hashCode ^
+      isKeyframe.hashCode ^
+      data.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FlutterReceivedVideoFrame &&
+          runtimeType == other.runtimeType &&
+          timestampMs == other.timestampMs &&
+          width == other.width &&
+          height == other.height &&
+          isKeyframe == other.isKeyframe &&
+          data == other.data;
 }
 
 /// Subscriber status
@@ -540,7 +685,7 @@ class FlutterTrackInfo {
           extra == other.extra;
 }
 
-/// Video frame data for Flutter
+/// Video frame data for Flutter (raw, unencoded)
 class FlutterVideoFrame {
   final int width;
   final int height;

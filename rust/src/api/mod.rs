@@ -10,6 +10,22 @@ pub mod iroh_live;
 // Flutter API for iroh-live features
 pub mod iroh_live_flutter_api;
 
+// WebTransport session layer (required by moq-lite)
+pub mod webtransport;
+
+// Live protocol handler and session management
+pub mod live_protocol;
+
+// Broadcast publishing (video/audio renditions)
+pub mod publish_broadcast;
+
+// Broadcast subscription (receiving media)
+pub mod subscribe_broadcast;
+
+// FFmpeg encoder following iroh-live patterns (requires ffmpeg feature)
+#[cfg(feature = "ffmpeg")]
+pub mod ffmpeg_encoder;
+
 // Legacy modules (will be deprecated)
 mod streaming;  // Old gossip-based - not used
 mod direct_streaming;  // Old direct QUIC - not used
